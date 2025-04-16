@@ -1,0 +1,39 @@
+import java.util.HashMap;
+import java.util.List;
+
+public class StaticData {
+    public static HashMap<Integer, Integer> stopIdToIndex;
+    public static List<Trip> trips;
+    public static List<ChargingEvent> chargingEvents;
+
+    public static Trip depoStart;
+    public static Trip depoEnd;
+
+    public static double[][] matrixKm;
+    public static int[][] matrixTime;
+    public static final double CONSUMPTION_PER_KM = 0.8;
+    public static final double BATTERY_CAPACITY = 140.0;
+    public static final double MIN_BATTERY = 0.2;
+    public static final double MAX_BATTERY = 0.8;
+
+    public static double getDeadheadEnergy(int from, int to) {
+        return getTravelDistance(from, to) * CONSUMPTION_PER_KM;
+    }
+
+    public static int getTravelTime(int from, int to) {
+        return matrixTime[from][to];
+    }
+
+    public static double getTravelDistance(int from, int to) {
+        return matrixKm[from][to];
+    }
+
+    public static Trip getTripById(int id) {
+        for (Trip trip : trips) {
+            if (trip.getId() == id) {
+                return trip;
+            }
+        }
+        return null;
+    }
+}

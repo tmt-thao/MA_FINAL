@@ -1,0 +1,351 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
+public class MemeticAlgorithm {
+    private int populationSize;
+    private int generations;
+
+    private double mutationRate;
+    private int mutationNum;
+    private double localSearchRate;
+    private int localSearchNum;
+
+    private List<Solution> population;
+    private Solution bestSolution;
+    private Random random;
+
+    public MemeticAlgorithm(int populationSize, int generations, double mutationRate, int mutationNum,
+            double localSearchRate, int localSearchNum) {
+        this.populationSize = populationSize;
+        this.generations = generations;
+
+        this.mutationRate = mutationRate;
+        this.mutationNum = mutationNum;
+        this.localSearchRate = localSearchRate;
+        this.localSearchNum = localSearchNum;
+
+        this.population = new ArrayList<>();
+        this.bestSolution = null;
+        this.random = new Random();
+    }
+
+    public void run() {
+        initializePopulation();
+
+        for (int generation = 0; generation < generations; generation++) {
+            List<Solution> newPopulation = new ArrayList<>();
+            newPopulation.add(bestSolution);
+
+            while (newPopulation.size() < populationSize) {
+                Solution bestChild;
+
+                Solution parent1 = selectParent();
+                Solution parent2 = selectParent();
+                Solution crossoverChild = crossover(parent1, parent2);
+                evaluatePopulation(crossoverChild);
+
+                Solution mutatedChild = mutate(crossoverChild);
+                bestChild = mutatedChild.getFitness() < crossoverChild.getFitness() ? mutatedChild : crossoverChild;
+
+                Solution localSearchChild = localSearch(crossoverChild);
+                bestChild = localSearchChild.getFitness() < bestChild.getFitness() ? localSearchChild : bestChild;
+
+                newPopulation.add(bestChild);
+            }
+
+            population = newPopulation;
+            System.out.println("Generation " + generation + " - best turnuses: " + bestSolution.getTurnuses().size()
+                    + ", trips unique: " + bestSolution.getUniqueTripsCount()
+                    + ", trips all: " + bestSolution.getAllTripsCount());
+        }
+
+        System.out.println("Best solution: " + bestSolution);
+        System.out.println("Final best turnuses: " + bestSolution.getTurnuses().size() 
+                + ", trips unique: " + bestSolution.getUniqueTripsCount()
+                + ", trips all: " + bestSolution.getAllTripsCount());
+    }
+
+    public void initializePopulation() {
+        population.add(Solution.generateSolution(new ArrayList<>(StaticData.trips)));
+        this.bestSolution = new Solution(population.get(0));
+
+        while (population.size() < populationSize) {
+            List<Trip> trips = new ArrayList<>(StaticData.trips);
+            Collections.shuffle(trips, random);
+            Solution solution = Solution.generateSolution(trips);
+            if (solution == null)
+                continue;
+
+            population.add(solution);
+            evaluatePopulation(solution);
+        }
+
+        System.out.println("Initial best solution turnuses count: " + bestSolution.getTurnuses().size()
+                + ", trips unique: " + bestSolution.getUniqueTripsCount()
+                + ", trips all: " + bestSolution.getAllTripsCount());
+    }
+
+    private void evaluatePopulation(Solution solution) {
+        if (bestSolution == null || solution.getFitness() < bestSolution.getFitness()) {
+            bestSolution = new Solution(solution);
+        }
+    }
+
+    public Solution selectParent() {
+        // 1. Vypočítaj váhy ako 1 / fitness
+        List<Double> weights = new ArrayList<>();
+        double total = 0.0;
+
+        for (Solution sol : population) {
+            double w = 1.0 / sol.getFitness();
+            weights.add(w);
+            total += w;
+        }
+
+        // 2. Normuj váhy na 0–1
+        List<Double> cumulative = new ArrayList<>();
+        double cumulativeSum = 0.0;
+        for (double w : weights) {
+            cumulativeSum += w / total;
+            cumulative.add(cumulativeSum);
+        }
+
+        // 3. Vytoč ruletu
+        double r = random.nextDouble();
+
+        for (int i = 0; i < cumulative.size(); i++) {
+            if (r <= cumulative.get(i)) {
+                return new Solution(population.get(i));
+            }
+        }
+
+        // fallback – nemalo by nastať
+        return new Solution(population.get(random.nextInt(population.size())));
+    }
+
+    public Solution crossover(Solution parent1, Solution parent2) {
+        Solution child = new Solution();
+
+        Turnus turnus1 = parent1.getTurnuses().get(random.nextInt(parent1.getTurnuses().size()));
+        Turnus turnus2 = parent2.getTurnuses().get(random.nextInt(parent2.getTurnuses().size()));
+
+        List<Trip> trips1 = new ArrayList<>(turnus1.getTrips());
+        trips1.remove(0); // remove depo start
+        trips1.remove(trips1.size() - 1); // remove depo end
+
+        List<Trip> trips2 = new ArrayList<>(turnus2.getTrips());
+        trips2.remove(0); // remove depo start
+        trips2.remove(trips2.size() - 1); // remove depo end
+
+        List<Trip> duplicatedTrips = new ArrayList<>(trips1);
+        for (Trip trip1 : trips1) {
+            for (Trip trip2 : trips2) {
+                if (trip1.getId() == trip2.getId()) {
+                    duplicatedTrips.remove(trip1);
+                    break;
+                }
+            }
+        }
+
+        List<Trip> missingTrips = new ArrayList<>(trips2);
+        for (Trip trip2 : trips2) {
+            for (Trip trip1 : trips1) {
+                if (trip1.getId() == trip2.getId()) {
+                    missingTrips.remove(trip2);
+                    break;
+                }
+            }
+        }
+
+        List<Trip> parent2Trips = new ArrayList<>();
+        for (Turnus turnus : parent2.getTurnuses()) {
+            if (turnus != turnus2) {
+                List<Trip> trips = new ArrayList<>(turnus.getTrips());
+                trips.remove(0); // remove depo start
+                trips.remove(trips.size() - 1); // remove depo end
+                parent2Trips.addAll(trips);
+            }
+        }
+
+        List<Trip> toBeAddedTrips = new ArrayList<>(parent2Trips);
+        for (Trip trip : duplicatedTrips) {
+            for (Trip trip2 : parent2Trips) {
+                if (trip.getId() == trip2.getId()) {
+                    toBeAddedTrips.remove(trip2);
+                    break;
+                }
+            }
+        }
+        // toBeAddedTrips.removeAll(duplicatedTrips);
+        toBeAddedTrips.addAll(missingTrips);
+
+        child.addTurnus(new Turnus(turnus1));
+        child.addTrips(toBeAddedTrips);
+
+        return child;
+    }
+
+    public Solution mutate(Solution solution) {
+        Solution best = new Solution(solution);
+
+        for (int i = 0; i < mutationNum; i++) {
+            if (random.nextDouble() > mutationRate) {
+                continue;
+            }
+
+            Solution mutated = new Solution();
+
+            Turnus turnus1 = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            while (turnus1.getTrips().size() < 3) {
+                turnus1 = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            }
+            Turnus turnus2 = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            while (turnus1 == turnus2 || turnus2.getTrips().size() < 3) {
+                turnus2 = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            }
+
+            for (Turnus turnus : solution.getTurnuses()) {
+                if (turnus != turnus1 && turnus != turnus2) {
+                    mutated.addTurnus(new Turnus(turnus));
+                }
+            }
+
+            List<Trip> trips1 = new ArrayList<>(turnus1.getTrips());
+            trips1.remove(0); // remove depo start
+            trips1.remove(trips1.size() - 1); // remove depo end
+
+            List<Trip> trips2 = new ArrayList<>(turnus2.getTrips());
+            trips2.remove(0); // remove depo start
+            trips2.remove(trips2.size() - 1); // remove depo end
+
+            int from = random.nextInt(trips1.size());
+            int length = random.nextInt(trips1.size() - from) + 1;
+            List<Trip> seq1 = trips1.subList(from, from + length);
+            Trip seq1FirstTrip = seq1.get(0);
+            Trip seq1LastTrip = seq1.get(seq1.size() - 1);
+
+            // paralelna seq2 k seq1
+            List<Trip> seq2 = new ArrayList<>();
+            for (Trip trip2 : trips2) {
+                if (trip2.getStartTime() >= seq1FirstTrip.getStartTime() && trip2.getEndTime() <= seq1LastTrip.getEndTime()) {
+                    seq2.add(trip2);
+                } else if (trip2.getStartTime() > seq1LastTrip.getEndTime()) {
+                    break;
+                }
+            }
+
+            List<Trip> toBeAddedTrips1 = new ArrayList<>();
+            toBeAddedTrips1.addAll(trips1);
+            toBeAddedTrips1.removeAll(seq1);
+            toBeAddedTrips1.addAll(seq2);
+            toBeAddedTrips1.sort(Comparator.comparing(Trip::getStartTime));
+
+            List<Trip> notAdded = new ArrayList<>();
+            Turnus newTurnus1 = new Turnus();
+            for (Trip trip : toBeAddedTrips1) {
+                if (!newTurnus1.addTrip(trip, mutated.getFreeChargers())) {
+                    notAdded.add(trip);
+                }
+            }
+            newTurnus1.addDepoEnd();
+            mutated.addTurnus(newTurnus1);
+
+            List<Trip> toBeAddedTrips2 = new ArrayList<>();
+            toBeAddedTrips2.addAll(trips2);
+            toBeAddedTrips2.removeAll(seq2);
+            toBeAddedTrips2.addAll(seq1);
+            toBeAddedTrips2.sort(Comparator.comparing(Trip::getStartTime));
+
+            Turnus newTurnus2 = new Turnus();
+            for (Trip trip : toBeAddedTrips2) {
+                if (!newTurnus2.addTrip(trip, mutated.getFreeChargers())) {
+                    notAdded.add(trip);
+                }
+            }
+            newTurnus2.addDepoEnd();
+            mutated.addTurnus(newTurnus2);
+            mutated.addTrips(notAdded);
+
+            if (mutated.getFitness() < best.getFitness()) {
+                best = new Solution(mutated);
+                evaluatePopulation(best);
+            }
+        }
+
+        return best;
+    }
+
+    private Solution localSearch(Solution solution) {
+        Solution best = new Solution(solution);
+
+        for (int i = 0; i < localSearchNum; i++) {
+            if (random.nextDouble() > localSearchRate) {
+                continue;
+            }
+
+            Solution localSearched = new Solution(solution);
+
+            Turnus turnus = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            List<Trip> trips = turnus.getTrips();
+            trips.remove(0); // remove depo start
+            trips.remove(trips.size() - 1); // remove depo end
+
+            localSearched.removeTurnus(turnus);
+            localSearched.addTrips(trips);
+
+            // for (Trip trip : trips) {
+            //     Turnus turnusToBeRemoved = null;
+            //     Turnus turnusToBeAdded = new Turnus();
+            //     boolean added = true;
+
+            //     for (Turnus t : solution.getTurnuses()) {
+            //         turnusToBeRemoved = t;
+
+            //         List<Trip> tripsToBeAdded = new ArrayList<>(t.getTrips());
+            //         tripsToBeAdded.remove(0); // remove depo start
+            //         tripsToBeAdded.remove(tripsToBeAdded.size() - 1); // remove depo end
+
+            //         tripsToBeAdded.add(trip);
+            //         tripsToBeAdded.sort(Comparator.comparing(Trip::getStartTime));
+
+            //         for (Trip tba : tripsToBeAdded) {
+            //             if (!turnusToBeAdded.addTrip(tba, solution.getFreeChargers())) {
+            //                 added = false;
+            //                 break;
+            //             }
+            //         }
+
+            //         if (added) {
+            //             localSearched.removeTurnus(turnusToBeRemoved);
+            //             localSearched.addTurnus(turnusToBeAdded);
+            //             break;
+            //         } else {
+            //             Turnus newTurnus = new Turnus();
+            //             newTurnus.addTrip(trip, localSearched.getFreeChargers());
+            //         }
+            //     }
+            // }
+
+            for (Turnus t : localSearched.getTurnuses()) {
+                if (t.getLastTrip().getEndStop() != StaticData.depoEnd.getStartStop()) {
+                    t.addDepoEnd();
+                }
+            }
+
+            if (localSearched.getFitness() < best.getFitness()) {
+                best = new Solution(localSearched);
+                evaluatePopulation(best);
+            }
+        }
+
+        return best;
+    }
+
+
+    public Solution getBestSolution() {
+        return bestSolution;
+    }
+}
