@@ -69,15 +69,15 @@ public class MemeticAlgorithm {
     }
 
     public void initializePopulation() {
-        population.add(Solution.generateSolution(new ArrayList<>(StaticData.trips)));
+        population.add(Solution.generate(new ArrayList<>(StaticData.trips)));
         this.bestSolution = new Solution(population.get(0));
 
         while (population.size() < populationSize) {
             List<Trip> trips = new ArrayList<>(StaticData.trips);
             Collections.shuffle(trips, random);
-            Solution solution = Solution.generateSolution(trips);
-            if (solution == null)
-                continue;
+            Solution solution = Solution.generate(trips);
+            // if (solution == null)
+            //     continue;
 
             population.add(solution);
             evaluatePopulation(solution);
@@ -89,7 +89,7 @@ public class MemeticAlgorithm {
     }
 
     private void evaluatePopulation(Solution solution) {
-        if (bestSolution == null || solution.getFitness() < bestSolution.getFitness()) {
+        if (solution.getNumberOfTurnuses() < bestSolution.getNumberOfTurnuses() && solution.getFitness() < bestSolution.getFitness()) {
             bestSolution = new Solution(solution);
         }
     }
@@ -250,7 +250,7 @@ public class MemeticAlgorithm {
                     notAdded.add(trip);
                 }
             }
-            newTurnus1.addDepoEnd();
+            //newTurnus1.addDepoEnd();
             mutated.addTurnus(newTurnus1);
 
             List<Trip> toBeAddedTrips2 = new ArrayList<>();
@@ -265,7 +265,7 @@ public class MemeticAlgorithm {
                     notAdded.add(trip);
                 }
             }
-            newTurnus2.addDepoEnd();
+            //newTurnus2.addDepoEnd();
             mutated.addTurnus(newTurnus2);
             mutated.addTrips(notAdded);
 
@@ -288,52 +288,13 @@ public class MemeticAlgorithm {
 
             Solution localSearched = new Solution(solution);
 
-            Turnus turnus = solution.getTurnuses().get(random.nextInt(solution.getTurnuses().size()));
+            Turnus turnus = localSearched.getTurnuses().get(random.nextInt(localSearched.getTurnuses().size()));
             List<Trip> trips = turnus.getTrips();
-            trips.remove(0); // remove depo start
-            trips.remove(trips.size() - 1); // remove depo end
+            trips.remove(0);     // remove depo start
+            trips.remove(trips.size() - 1);     // remove depo end
 
             localSearched.removeTurnus(turnus);
             localSearched.addTrips(trips);
-
-            // for (Trip trip : trips) {
-            //     Turnus turnusToBeRemoved = null;
-            //     Turnus turnusToBeAdded = new Turnus();
-            //     boolean added = true;
-
-            //     for (Turnus t : solution.getTurnuses()) {
-            //         turnusToBeRemoved = t;
-
-            //         List<Trip> tripsToBeAdded = new ArrayList<>(t.getTrips());
-            //         tripsToBeAdded.remove(0); // remove depo start
-            //         tripsToBeAdded.remove(tripsToBeAdded.size() - 1); // remove depo end
-
-            //         tripsToBeAdded.add(trip);
-            //         tripsToBeAdded.sort(Comparator.comparing(Trip::getStartTime));
-
-            //         for (Trip tba : tripsToBeAdded) {
-            //             if (!turnusToBeAdded.addTrip(tba, solution.getFreeChargers())) {
-            //                 added = false;
-            //                 break;
-            //             }
-            //         }
-
-            //         if (added) {
-            //             localSearched.removeTurnus(turnusToBeRemoved);
-            //             localSearched.addTurnus(turnusToBeAdded);
-            //             break;
-            //         } else {
-            //             Turnus newTurnus = new Turnus();
-            //             newTurnus.addTrip(trip, localSearched.getFreeChargers());
-            //         }
-            //     }
-            // }
-
-            for (Turnus t : localSearched.getTurnuses()) {
-                if (t.getLastTrip().getEndStop() != StaticData.depoEnd.getStartStop()) {
-                    t.addDepoEnd();
-                }
-            }
 
             if (localSearched.getFitness() < best.getFitness()) {
                 best = new Solution(localSearched);
@@ -342,10 +303,5 @@ public class MemeticAlgorithm {
         }
 
         return best;
-    }
-
-
-    public Solution getBestSolution() {
-        return bestSolution;
     }
 }

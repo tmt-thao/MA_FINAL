@@ -8,7 +8,8 @@ public class Turnus {
     public Turnus() {
         this.elements = new ArrayList<>();
         this.elements.add(new Trip(StaticData.depoStart));
-        this.batteryStatus = StaticData.BATTERY_CAPACITY;
+        this.elements.add(new Trip(StaticData.depoEnd));
+        this.batteryStatus = StaticData.MAX_BATTERY;
     }
 
     public Turnus(Turnus other) {
@@ -36,7 +37,7 @@ public class Turnus {
 
     public Trip getLastTrip() {
         List<Trip> trips = getTrips();
-        return trips.get(trips.size() - 1); // urcite je v turnuse minimalne 1 trip, a to depo
+        return trips.get(trips.size() - 1); // urcite je v turnuse minimalne 1 trip, a to ranne depo
     }
 
     public List<ChargingEvent> getChargingEvents() {
@@ -49,24 +50,24 @@ public class Turnus {
         return chargingEvents;
     }
 
-    public void addDepoEnd() {
-        elements.add(new Trip(StaticData.depoEnd));
-        batteryStatus -= StaticData.getDeadheadEnergy(getLastTrip().getEndStop(), StaticData.depoEnd.getStartStop());
-    }
+    // public void addDepoEnd() {
+    //     elements.add(new Trip(StaticData.depoEnd));
+    //     batteryStatus -= StaticData.getDeadheadEnergy(getLastTrip().getEndStop(), StaticData.depoEnd.getStartStop());
+    // }
 
-    public Trip getNexTrip(int index) {
-        for (int i = index + 1; i < elements.size(); i++) {
-            if (elements.get(i) instanceof Trip trip) {
-                return trip;
-            }
-        }
-        return null;
-    }
+    // public Trip getNexTrip(int index) {
+    //     for (int i = index + 1; i < elements.size(); i++) {
+    //         if (elements.get(i) instanceof Trip trip) {
+    //             return trip;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     public boolean addTrip(Trip newTrip, List<ChargingEvent> freeChargers) {
-        for (int i = 0; i < elements.size(); i++) {
+        for (int i = 0; i < elements.size() - 1; i++) {
             if (elements.get(i) instanceof Trip currTrip) {
-                TurnusElement nextElement = (i + 1 < elements.size()) ? elements.get(i + 1) : null;
+                TurnusElement nextElement = elements.get(i + 1);
                 int nextStartStop = 0;
     
                 if (nextElement instanceof Trip nextTrip) {
@@ -78,16 +79,16 @@ public class Turnus {
                 int arrivalTime = currTrip.getEndTime()
                         + StaticData.getTravelTime(currTrip.getEndStop(), newTrip.getStartStop());
                 double energyConsumption = StaticData.getDeadheadEnergy(currTrip.getEndStop(), newTrip.getStartStop())
-                        + newTrip.getEnergy();
+                        + newTrip.getEnergy() 
+                        + StaticData.getDeadheadEnergy(newTrip.getEndStop(), nextStartStop)
+                        - StaticData.getDeadheadEnergy(currTrip.getStartStop(), nextStartStop);
     
                 if (arrivalTime <= newTrip.getStartTime()
-                        && batteryStatus - energyConsumption >= StaticData.MIN_BATTERY * StaticData.BATTERY_CAPACITY
-                        && (nextElement == null || (batteryStatus - energyConsumption
-                                - StaticData.getDeadheadEnergy(newTrip.getEndStop(), nextStartStop) >= 0
-                                && newTrip.getEndTime() + StaticData.getTravelTime(newTrip.getEndStop(), nextStartStop) <= nextElement.getStartTime()))) {
+                        && batteryStatus - energyConsumption >= StaticData.MIN_BATTERY
+                        && newTrip.getEndTime() + StaticData.getTravelTime(newTrip.getEndStop(), nextStartStop) <= nextElement.getStartTime()) {
     
                     elements.add(i + 1, newTrip);
-                    batteryStatus -= energyConsumption;
+                    batteryStatus -= energyConsumption ;
     
                     addChargingEvent(arrivalTime, freeChargers, newTrip);
     
@@ -96,19 +97,19 @@ public class Turnus {
             }
         }
     
-        Trip lastTrip = getLastTrip();
-        int arrivalTime = lastTrip.getEndTime()
-                + StaticData.getTravelTime(lastTrip.getEndStop(), newTrip.getStartStop());
-        double energyConsumption = StaticData.getDeadheadEnergy(lastTrip.getEndStop(), newTrip.getStartStop())
-                + newTrip.getEnergy();
+        // Trip lastTrip = getLastTrip();
+        // int arrivalTime = lastTrip.getEndTime()
+        //         + StaticData.getTravelTime(lastTrip.getEndStop(), newTrip.getStartStop());
+        // double energyConsumption = StaticData.getDeadheadEnergy(lastTrip.getEndStop(), newTrip.getStartStop())
+        //         + newTrip.getEnergy();
     
-        if (arrivalTime <= newTrip.getStartTime()
-                && batteryStatus - energyConsumption >= StaticData.MIN_BATTERY * StaticData.BATTERY_CAPACITY) {
-            elements.add(newTrip);
-            batteryStatus -= energyConsumption;
-            addChargingEvent(arrivalTime, freeChargers, newTrip);
-            return true;
-        }
+        // if (arrivalTime <= newTrip.getStartTime()
+        //         && batteryStatus - energyConsumption >= StaticData.MIN_BATTERY) {
+        //     elements.add(newTrip);
+        //     batteryStatus -= energyConsumption;
+        //     addChargingEvent(arrivalTime, freeChargers, newTrip);
+        //     return true;
+        // }
     
         return false;
 
@@ -151,8 +152,7 @@ public class Turnus {
             if (chargingEvent.getStop() == trip.getStartStop()
                     && chargingEvent.getStartTime() >= arrivalTime
                     && chargingEvent.getEndTime() <= trip.getStartTime()
-                    && chargingEvent.getEnergy() + batteryStatus <= StaticData.MAX_BATTERY
-                            * StaticData.BATTERY_CAPACITY) {
+                    && chargingEvent.getEnergy() + batteryStatus <= StaticData.MAX_BATTERY) {
                 candidates.add(chargingEvent);
                 batteryStatus += chargingEvent.getEnergy();
             }

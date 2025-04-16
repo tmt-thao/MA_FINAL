@@ -28,37 +28,23 @@ public class Solution {
         }
     }
 
-    public void clear() {
-        this.turnuses.clear();
+    // public void clear() {
+    //     this.turnuses.clear();
 
-        this.freeChargers.clear();
-        for (ChargingEvent chargingEvent : StaticData.chargingEvents) {
-            this.freeChargers.add(new ChargingEvent(chargingEvent));
-        }
-    }
+    //     this.freeChargers.clear();
+    //     for (ChargingEvent chargingEvent : StaticData.chargingEvents) {
+    //         this.freeChargers.add(new ChargingEvent(chargingEvent));
+    //     }
+    // }
     
-    public static Solution generateSolution(List<Trip> trips) {
+    public static Solution generate(List<Trip> trips) {
         Solution solution = new Solution();
 
-        for (Trip trip : trips) {
-            boolean added = false;
+        solution.addTrips(trips);
 
-            for (Turnus turnus : solution.turnuses) {
-                if (turnus.addTrip(trip, solution.freeChargers)) {
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                Turnus newTurnus = new Turnus();
-                newTurnus.addTrip(trip, solution.freeChargers);
-                solution.addTurnus(newTurnus);
-            }
-        }
-
-        for (Turnus turnus : solution.turnuses) {
-            turnus.addDepoEnd();
-        }
+        // for (Turnus turnus : solution.turnuses) {
+        //     turnus.addDepoEnd();
+        // }
 
         return solution;
     }
@@ -103,32 +89,34 @@ public class Solution {
         this.turnuses.remove(turnus);
     }
 
-    // TODO: addTrip<Trip> - pridat trip do nejakeho turnusu, ak sa tam zmesti, inak vytvorit novy turnus
-    public void addTrips(List<Trip> trips) {
-        for (Trip trip : trips) {
-            boolean added = false;
-
-            for (Turnus turnus : turnuses) {
-                if (turnus.getLastTrip().getEndStop() == StaticData.depoEnd.getStartStop()) {
-                    turnus.getTrips().remove(turnus.getTrips().size() - 1); // skip depo end trip
-                }
-                if (turnus.addTrip(trip, freeChargers)) {
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                Turnus newTurnus = new Turnus();
-                newTurnus.addTrip(trip, freeChargers);
-                addTurnus(newTurnus);
-            }
-        }
+    public void addTrip(Trip trip) {
+        boolean added = false;
 
         for (Turnus turnus : turnuses) {
-            if (turnus.getLastTrip().getStartStop() != StaticData.depoEnd.getStartStop()) {
-                turnus.addDepoEnd();
+            if (turnus.addTrip(trip, freeChargers)) {
+                added = true;
+                break;
             }
         }
+
+        if (!added) {
+            Turnus newTurnus = new Turnus();
+            newTurnus.addTrip(trip, freeChargers);
+            addTurnus(newTurnus);
+        }
+    }
+
+    public void addTrips(List<Trip> trips) {
+        for (Trip trip : trips) {
+            addTrip(trip);
+        }
+        
+
+        // for (Turnus turnus : turnuses) {
+        //     if (turnus.getLastTrip().getStartStop() != StaticData.depoEnd.getStartStop()) {
+        //         turnus.addDepoEnd();
+        //     }
+        // }
     }
 
     public List<Turnus> getTurnuses() {
