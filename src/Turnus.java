@@ -90,7 +90,9 @@ public class Turnus {
                     elements.add(i + 1, newTrip);
                     batteryStatus -= energyConsumption ;
     
-                    addChargingEvent(arrivalTime, freeChargers, newTrip);
+                    // iba 1 z tychto 2 pouzit!!!!
+                    // addChargingEventNewTripStartStop(arrivalTime, freeChargers, newTrip);
+                    addChargingEventCurrTripEndStop(newTrip.getStartTime() - arrivalTime, freeChargers, currTrip);
     
                     return true;
                 }
@@ -140,7 +142,7 @@ public class Turnus {
         // return false;
     }
 
-    public void addChargingEvent(int arrivalTime, List<ChargingEvent> freeChargers, Trip trip) {
+    public void addChargingEventNewTripStartStop(int arrivalTime, List<ChargingEvent> freeChargers, Trip trip) {
         List<ChargingEvent> candidates = new ArrayList<>();
 
         for (ChargingEvent chargingEvent : freeChargers) {
@@ -155,6 +157,34 @@ public class Turnus {
                     && chargingEvent.getEnergy() + batteryStatus <= StaticData.MAX_BATTERY) {
                 candidates.add(chargingEvent);
                 batteryStatus += chargingEvent.getEnergy();
+            }
+        }
+
+        for (ChargingEvent candidate : candidates) {
+            freeChargers.remove(candidate);
+            elements.add(candidate);
+        }
+    }
+
+
+    public void addChargingEventCurrTripEndStop(int spareTime, List<ChargingEvent> freeChargers, Trip trip) {
+        List<ChargingEvent> candidates = new ArrayList<>();
+
+        for (ChargingEvent chargingEvent : freeChargers) {
+            if (!candidates.isEmpty()
+                    && chargingEvent.getCharger() != candidates.get(candidates.size() - 1).getCharger()) {
+                break;
+            }
+
+            if (chargingEvent.getStop() == trip.getEndStop()
+                    && chargingEvent.getStartTime() >= trip.getEndTime()
+                    && chargingEvent.getEnergy() + batteryStatus <= StaticData.MAX_BATTERY) {
+
+                if (spareTime - chargingEvent.getDuration() >= 0) break;
+
+                candidates.add(chargingEvent);
+                batteryStatus += chargingEvent.getEnergy();
+                spareTime -= chargingEvent.getDuration();
             }
         }
 

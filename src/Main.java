@@ -27,7 +27,7 @@ public class Main {
         DataLoader.loadMatrixKm("data/matrixKm.txt", StaticData.stopIdToIndex.size());
         DataLoader.loadMatrixTime("data/matrixTime.txt", StaticData.stopIdToIndex.size());
 
-        String version = "A_4";
+        String version = "T4_3";
         DataLoader.loadChargingEvents("data/ChEvents_" + version + ".csv");
         DataLoader.loadTrips("data/spoje_id_" + version + ".csv");
 
@@ -35,7 +35,7 @@ public class Main {
         ma.run();
         // 5, 500, 0.8, 10, 0.8, 10
         // JAR
-        // T:   5,    10,     13,     32
+        // T:   5,    10,     13,     30
         // B:   4,    4,      5,      8,     9,      16,    38
         // A:   74
     }
