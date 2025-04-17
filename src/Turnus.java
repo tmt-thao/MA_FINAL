@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -116,6 +118,7 @@ public class Turnus {
 
         for (int i = 0; i < elements.size() - 1; i++) {
             if (elements.get(i) instanceof Trip currTrip) {
+
                 currBattery -= currTrip.getEnergy();
 
                 TurnusElement nextElement = elements.get(i + 1);
@@ -136,17 +139,19 @@ public class Turnus {
     
                 if (arrivalTime <= newTrip.getStartTime()
                         && batteryStatus - energyConsumption >= StaticData.MIN_BATTERY
+                        && currBattery - energyConsumption >= StaticData.MIN_BATTERY
                         && newTrip.getEndTime() + StaticData.getTravelTime(newTrip.getEndStop(), nextStartStop) <= nextElement.getStartTime()) {
     
                     elements.add(i + 1, newTrip);
                     batteryStatus -= energyConsumption;
-    
+                    currBattery -= energyConsumption;
                     addChargingEvents(arrivalTime, freeChargers, newTrip, currBattery);
                     return true;
                 }
                 currBattery -= StaticData.getDeadheadEnergy(currTrip.getEndStop(), nextStartStop);
             } else if (elements.get(i) instanceof ChargingEvent currCharger) {
                 currBattery += currCharger.getEnergy();
+
             }
         }
     
@@ -261,23 +266,37 @@ public class Turnus {
         StringBuilder sb = new StringBuilder();
         sb.append("Turnus{\n");
 
-        sb.append("Elements:\n");
-        for (TurnusElement element : elements) {
-            sb.append(element).append("\n");
+        double currBattery = StaticData.MAX_BATTERY;
+        sb.append(String.format("%-100s", elements.get(0))).append("\tBattery: ").append(currBattery).append("\n");
+
+        for (int i = 1; i < elements.size(); i++) {
+            TurnusElement prevElement = elements.get(i - 1);
+            TurnusElement currElement = elements.get(i);
+
+            int prevStop = 0;
+            int currStop = 0;
+
+            if (prevElement instanceof Trip prevTrip) {
+                prevStop = prevTrip.getEndStop();
+            } else if (prevElement instanceof ChargingEvent prevCharger) {
+                prevStop = prevCharger.getStop();
+            }
+
+            if (currElement instanceof Trip currTrip) {
+                currBattery -= currTrip.getEnergy();
+                currStop = currTrip.getStartStop();
+            } else if (currElement instanceof ChargingEvent currCharger) {
+                currBattery += currCharger.getEnergy();
+                currStop = currCharger.getStop();
+            }
+
+            currBattery -= StaticData.getDeadheadEnergy(prevStop, currStop);
+
+            sb.append(String.format("%-100s", currElement));
+            sb.append("\tBattery: ").append(currBattery).append("\n");
         }
 
-        // sb.append("Trips:\n");
-        // for (Trip trip : getTrips()) {
-        //     sb.append(trip).append("\n");
-        // }
-
-        // sb.append("Charging Events:\n");
-        // for (ChargingEvent chargingEvent : getChargingEvents()) {
-        // sb.append(chargingEvent).append("\n");
-        // }
-
         sb.append("Battery Status: ").append(batteryStatus).append("\n");
-
         sb.append("}\n");
         return sb.toString();
     }
