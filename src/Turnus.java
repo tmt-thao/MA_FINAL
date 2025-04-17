@@ -267,7 +267,7 @@ public class Turnus {
         sb.append("Turnus{\n");
 
         double currBattery = StaticData.MAX_BATTERY;
-        sb.append(String.format("%-100s", elements.get(0))).append("\tBattery: ").append(currBattery).append("\n");
+        sb.append(String.format("%-100s", elements.get(0))).append("\tBattery: ").append(String.format("%3.2f", currBattery)).append("\n");
 
         for (int i = 1; i < elements.size(); i++) {
             TurnusElement prevElement = elements.get(i - 1);
@@ -293,11 +293,11 @@ public class Turnus {
             currBattery -= StaticData.getDeadheadEnergy(prevStop, currStop);
 
             sb.append(String.format("%-100s", currElement));
-            sb.append("\tBattery: ").append(currBattery).append("\n");
+            sb.append("\tBattery: ").append(String.format("%7.3f", currBattery)).append("\n");
         }
 
-        sb.append("Battery Status: ").append(batteryStatus).append("\n");
-        sb.append("}\n");
+        //sb.append("Battery Status: ").append(batteryStatus).append("\n");
+        sb.append("}");
         return sb.toString();
     }
 }

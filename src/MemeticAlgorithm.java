@@ -57,13 +57,14 @@ public class MemeticAlgorithm {
             }
 
             population = newPopulation;
-            System.out.println("Generation " + generation + " - best turnuses: " + bestSolution.getTurnuses().size()
+            System.out.println("Generation " + String.format("%4d", generation + 1) 
+                    + " - best turnuses: " + String.format("%4d", bestSolution.getTurnuses().size())
                     + ", trips unique: " + bestSolution.getUniqueTripsCount()
                     + ", trips all: " + bestSolution.getAllTripsCount());
         }
 
-        System.out.println("Best solution: " + bestSolution);
-        System.out.println("Final best turnuses: " + bestSolution.getTurnuses().size() 
+        System.out.println("\nBest solution: " + bestSolution);
+        System.out.println("\nFinal best turnuses: " + bestSolution.getTurnuses().size() 
                 + ", trips unique: " + bestSolution.getUniqueTripsCount()
                 + ", trips all: " + bestSolution.getAllTripsCount());
     }
@@ -85,7 +86,7 @@ public class MemeticAlgorithm {
 
         System.out.println("Initial best solution turnuses count: " + bestSolution.getTurnuses().size()
                 + ", trips unique: " + bestSolution.getUniqueTripsCount()
-                + ", trips all: " + bestSolution.getAllTripsCount());
+                + ", trips all: " + bestSolution.getAllTripsCount() + "\n");
     }
 
     private void evaluatePopulation(Solution solution) {
