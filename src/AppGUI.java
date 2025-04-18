@@ -16,7 +16,7 @@ public class AppGUI {
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("Memetic algorithm for electric bus scheduling");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850, 300);
+        frame.setSize(850, 350);
         frame.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
@@ -25,22 +25,30 @@ public class AppGUI {
 
         Dimension inputSize = new Dimension(120, 25);
 
+        // === Dataset + Output file + Scenario ===
         JComboBox<String> versionBox = new JComboBox<>(VERSIONS);
-        JTextField outputFileField = new JTextField("vystup.txt");
+        JTextField outputFileField = new JTextField("output.txt");
+        String[] seasons = { "Spring", "Summer", "Winter" };
+        JComboBox<String> seasonBox = new JComboBox<>(seasons);
+
         versionBox.setPreferredSize(inputSize);
         outputFileField.setPreferredSize(inputSize);
+        seasonBox.setPreferredSize(inputSize);
 
-        JPanel datasetPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel datasetPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         datasetPanel.add(new JLabel("Dataset:"));
         datasetPanel.add(versionBox);
         datasetPanel.add(new JLabel("Output file:"));
         datasetPanel.add(outputFileField);
+        datasetPanel.add(new JLabel("Scenario:"));
+        datasetPanel.add(seasonBox);
         mainPanel.add(datasetPanel);
 
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
-        JTextField replicationsField = new JTextField("10");
+        // === Replications ===
+        JTextField replicationsField = new JTextField("20");
         replicationsField.setPreferredSize(inputSize);
         JPanel repPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         repPanel.add(new JLabel("Replications:"));
@@ -51,7 +59,7 @@ public class AppGUI {
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
-        // === Parameter Grid ===
+        // === Algorithm Parameters ===
         JTextField populationField = new JTextField("5");
         JTextField generationsField = new JTextField("500");
         JTextField mutationRateField = new JTextField("0.8");
@@ -88,6 +96,7 @@ public class AppGUI {
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
         mainPanel.add(Box.createVerticalStrut(10));
 
+        // === Button ===
         JButton runButton = new JButton("Start");
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(runButton);
@@ -96,6 +105,7 @@ public class AppGUI {
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
 
+        // === Run button logic ===
         runButton.addActionListener((ActionEvent e) -> {
             JDialog loadingDialog = new JDialog(frame, "Running algorithm...", true);
             JLabel loadingLabel = new JLabel("Please wait...");
@@ -107,6 +117,23 @@ public class AppGUI {
             new Thread(() -> {
                 try {
                     SwingUtilities.invokeLater(() -> loadingDialog.setVisible(true));
+
+                    // === APPLY BATTERY SETTINGS BASED ON SEASON ===
+                    String season = (String) seasonBox.getSelectedItem();
+                    switch (season) {
+                        case "Spring":
+                            StaticData.CONSUMPTION_PER_KM = 1.5;
+                            StaticData.MAX_BATTERY = 125.0;
+                            break;
+                        case "Summer":
+                            StaticData.CONSUMPTION_PER_KM = 2.0;
+                            StaticData.MAX_BATTERY = 125.0;
+                            break;
+                        case "Winter":
+                            StaticData.CONSUMPTION_PER_KM = 2.0;
+                            StaticData.MAX_BATTERY = 100.0;
+                            break;
+                    }
 
                     String version = (String) versionBox.getSelectedItem();
                     int populationSize = Integer.parseInt(populationField.getText());
@@ -123,13 +150,13 @@ public class AppGUI {
 
                     SwingUtilities.invokeLater(() -> {
                         loadingDialog.dispose();
-                        JOptionPane.showMessageDialog(frame, "Hotovo! Výsledok je v súbore: " + outputFile);
+                        JOptionPane.showMessageDialog(frame, "Done! Results saved to " + outputFile);
                     });
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     SwingUtilities.invokeLater(() -> {
                         loadingDialog.dispose();
-                        JOptionPane.showMessageDialog(frame, "Chyba: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage());
                     });
                 }
             }).start();
