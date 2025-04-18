@@ -98,10 +98,12 @@ public class Main {
 
         // Výstup do súboru
         try (FileWriter writer = new FileWriter(outputFilename)) {
-            writer.write("Best solution: " + best + "\n");
+            writer.write("Version: " + version + "\n");
             writer.write("Turnuses: " + best.getTurnuses().size() + "\n");
             writer.write("Trips: " + best.getUniqueTripsCount() + "\n");
-            writer.write("Version: " + version + "\n");
+            writer.write("Solution: " + best + "\n");
+            
+            
         }
     }
 
