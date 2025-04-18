@@ -27,16 +27,38 @@ public class Main {
         DataLoader.loadMatrixKm("data/matrixKm.txt", StaticData.stopIdToIndex.size());
         DataLoader.loadMatrixTime("data/matrixTime.txt", StaticData.stopIdToIndex.size());
 
-        String version = "A_4";
+        String version = "T2_3";
         DataLoader.loadChargingEvents("data/ChEvents_" + version + ".csv");
         DataLoader.loadTrips("data/spoje_id_" + version + ".csv");
 
-        MemeticAlgorithm ma = new MemeticAlgorithm(5, 500, 0.8, 10, 0.8, 10);
-        ma.run();
+        int replications = 10;
+        int populationSize = 5;
+        int generations = 500;
+        double mutationRate = 0.8;
+        int mutationNum = 10;
+        double localSearchRate = 0.8;
+        int localSearchNum = 10;
+
+        Solution best = null;
+        for (int i = 0; i < replications; i++) {
+            MemeticAlgorithm ma = new MemeticAlgorithm(populationSize, generations, mutationRate, mutationNum, localSearchRate, localSearchNum);
+            ma.run();
+            Solution curr = ma.getBestSolution();
+
+            if (best == null || (curr.getNumberOfTurnuses() < best.getNumberOfTurnuses() && curr.getFitness() < best.getFitness())) {
+                best = curr;
+            }
+        }
+
+        System.out.println("Best solution: " + best);
+        System.out.println("\nTurnuses: " + best.getTurnuses().size());
+        System.out.println("\nTrips: " + best.getUniqueTripsCount());
+        System.out.println("\nVersion: " + version);
+
         // 5, 500, 0.8, 10, 0.8, 10
         // JAR
         // T:   5,    10,     13,     34
-        // B:   4,    4,      6,      9,     10,      17,    47
+        // B:   4,    4,      5,      8,     10,      17,    47
         // A:   93
     }
 }

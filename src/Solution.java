@@ -27,25 +27,10 @@ public class Solution {
             this.freeChargers.add(new ChargingEvent(chargingEvent));
         }
     }
-
-    // public void clear() {
-    //     this.turnuses.clear();
-
-    //     this.freeChargers.clear();
-    //     for (ChargingEvent chargingEvent : StaticData.chargingEvents) {
-    //         this.freeChargers.add(new ChargingEvent(chargingEvent));
-    //     }
-    // }
     
     public static Solution generate(List<Trip> trips) {
         Solution solution = new Solution();
-
         solution.addTrips(trips);
-
-        // for (Turnus turnus : solution.turnuses) {
-        //     turnus.addDepoEnd();
-        // }
-
         return solution;
     }
 
@@ -69,9 +54,9 @@ public class Solution {
     public int getAllTripsCount() {
         int count = 0;
         for (Turnus t : turnuses) {
-            count += t.getTrips().size() - 2;   // -2 for depo start and end
+            count += t.getTrips().size() - 2;
         }
-        return count + 2;   // +2 for depo start and end
+        return count + 2;
     }
 
     public void addTurnus(Turnus turnus) {
@@ -110,13 +95,6 @@ public class Solution {
         for (Trip trip : trips) {
             addTrip(trip);
         }
-        
-
-        // for (Turnus turnus : turnuses) {
-        //     if (turnus.getLastTrip().getStartStop() != StaticData.depoEnd.getStartStop()) {
-        //         turnus.addDepoEnd();
-        //     }
-        // }
     }
 
     public List<Turnus> getTurnuses() {

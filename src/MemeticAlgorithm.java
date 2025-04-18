@@ -32,6 +32,10 @@ public class MemeticAlgorithm {
         this.random = new Random();
     }
 
+    public Solution getBestSolution() {
+        return bestSolution;
+    }
+
     public void run() {
         initializePopulation();
 
@@ -40,36 +44,31 @@ public class MemeticAlgorithm {
             newPopulation.add(bestSolution);
 
             while (newPopulation.size() < populationSize) {
-                Solution bestChild;
-
                 Solution parent1 = selectParent();
                 Solution parent2 = selectParent();
-                Solution crossoverChild = crossover(parent1, parent2);
-                evaluatePopulation(crossoverChild);
+                Solution child = crossover(parent1, parent2);
+                evaluatePopulation(child);
 
-                Solution mutatedChild = mutate(crossoverChild);
-                bestChild = mutatedChild.getFitness() < crossoverChild.getFitness() ? mutatedChild : crossoverChild;
+                child = mutate(child);
+                child = localSearch(child);
 
-                Solution localSearchChild = localSearch(crossoverChild);
-                bestChild = localSearchChild.getFitness() < bestChild.getFitness() ? localSearchChild : bestChild;
-
-                newPopulation.add(bestChild);
+                newPopulation.add(child);
             }
 
             population = newPopulation;
-            System.out.println("Generation " + String.format("%4d", generation + 1) 
-                    + " - best turnuses: " + String.format("%4d", bestSolution.getTurnuses().size())
-                    + ", trips unique: " + bestSolution.getUniqueTripsCount()
-                    + ", trips all: " + bestSolution.getAllTripsCount());
+            // System.out.println("Generation " + String.format("%4d", generation + 1) 
+            //         + " - best turnuses: " + String.format("%4d", bestSolution.getTurnuses().size())
+            //         + ", trips unique: " + bestSolution.getUniqueTripsCount()
+            //         + ", trips all: " + bestSolution.getAllTripsCount());
         }
 
-        System.out.println("\nBest solution: " + bestSolution);
-        System.out.println("\nFinal best turnuses: " + bestSolution.getTurnuses().size() 
-                + ", trips unique: " + bestSolution.getUniqueTripsCount()
-                + ", trips all: " + bestSolution.getAllTripsCount());
+        // System.out.println("\nBest solution: " + bestSolution);
+        // System.out.println("\nFinal best turnuses: " + bestSolution.getTurnuses().size() 
+        //         + ", trips unique: " + bestSolution.getUniqueTripsCount()
+        //         + ", trips all: " + bestSolution.getAllTripsCount());
     }
 
-    public void initializePopulation() {
+    private void initializePopulation() {
         population.add(Solution.generate(new ArrayList<>(StaticData.trips)));
         this.bestSolution = new Solution(population.get(0));
 
@@ -77,16 +76,14 @@ public class MemeticAlgorithm {
             List<Trip> trips = new ArrayList<>(StaticData.trips);
             Collections.shuffle(trips, random);
             Solution solution = Solution.generate(trips);
-            // if (solution == null)
-            //     continue;
 
             population.add(solution);
             evaluatePopulation(solution);
         }
 
-        System.out.println("Initial best solution turnuses count: " + bestSolution.getTurnuses().size()
-                + ", trips unique: " + bestSolution.getUniqueTripsCount()
-                + ", trips all: " + bestSolution.getAllTripsCount() + "\n");
+        // System.out.println("Initial best solution turnuses count: " + bestSolution.getTurnuses().size()
+        //         + ", trips unique: " + bestSolution.getUniqueTripsCount()
+        //         + ", trips all: " + bestSolution.getAllTripsCount() + "\n");
     }
 
     private void evaluatePopulation(Solution solution) {
@@ -95,51 +92,46 @@ public class MemeticAlgorithm {
         }
     }
 
-    public Solution selectParent() {
-        // 1. Vypočítaj váhy ako 1 / fitness
+    private Solution selectParent() {
         List<Double> weights = new ArrayList<>();
         double total = 0.0;
 
-        for (Solution sol : population) {
-            double w = 1.0 / sol.getFitness();
-            weights.add(w);
-            total += w;
+        for (Solution solution : population) {
+            double weight = 1.0 / solution.getFitness();
+            weights.add(weight);
+            total += weight;
         }
 
-        // 2. Normuj váhy na 0–1
         List<Double> cumulative = new ArrayList<>();
         double cumulativeSum = 0.0;
-        for (double w : weights) {
-            cumulativeSum += w / total;
+        for (double weight : weights) {
+            cumulativeSum += weight / total;
             cumulative.add(cumulativeSum);
         }
 
-        // 3. Vytoč ruletu
         double r = random.nextDouble();
-
         for (int i = 0; i < cumulative.size(); i++) {
             if (r <= cumulative.get(i)) {
                 return new Solution(population.get(i));
             }
         }
 
-        // fallback – nemalo by nastať
         return new Solution(population.get(random.nextInt(population.size())));
     }
 
-    public Solution crossover(Solution parent1, Solution parent2) {
+    private Solution crossover(Solution parent1, Solution parent2) {
         Solution child = new Solution();
 
         Turnus turnus1 = parent1.getTurnuses().get(random.nextInt(parent1.getTurnuses().size()));
         Turnus turnus2 = parent2.getTurnuses().get(random.nextInt(parent2.getTurnuses().size()));
 
         List<Trip> trips1 = new ArrayList<>(turnus1.getTrips());
-        trips1.remove(0); // remove depo start
-        trips1.remove(trips1.size() - 1); // remove depo end
+        trips1.remove(0);
+        trips1.remove(trips1.size() - 1);
 
         List<Trip> trips2 = new ArrayList<>(turnus2.getTrips());
-        trips2.remove(0); // remove depo start
-        trips2.remove(trips2.size() - 1); // remove depo end
+        trips2.remove(0);
+        trips2.remove(trips2.size() - 1);
 
         List<Trip> duplicatedTrips = new ArrayList<>(trips1);
         for (Trip trip1 : trips1) {
@@ -165,8 +157,8 @@ public class MemeticAlgorithm {
         for (Turnus turnus : parent2.getTurnuses()) {
             if (turnus != turnus2) {
                 List<Trip> trips = new ArrayList<>(turnus.getTrips());
-                trips.remove(0); // remove depo start
-                trips.remove(trips.size() - 1); // remove depo end
+                trips.remove(0);
+                trips.remove(trips.size() - 1);
                 parent2Trips.addAll(trips);
             }
         }
@@ -180,16 +172,14 @@ public class MemeticAlgorithm {
                 }
             }
         }
-        // toBeAddedTrips.removeAll(duplicatedTrips);
         toBeAddedTrips.addAll(missingTrips);
 
         child.addTurnus(new Turnus(turnus1));
         child.addTrips(toBeAddedTrips);
-
         return child;
     }
 
-    public Solution mutate(Solution solution) {
+    private Solution mutate(Solution solution) {
         Solution best = new Solution(solution);
 
         for (int i = 0; i < mutationNum; i++) {
@@ -215,12 +205,12 @@ public class MemeticAlgorithm {
             }
 
             List<Trip> trips1 = new ArrayList<>(turnus1.getTrips());
-            trips1.remove(0); // remove depo start
-            trips1.remove(trips1.size() - 1); // remove depo end
+            trips1.remove(0);
+            trips1.remove(trips1.size() - 1);
 
             List<Trip> trips2 = new ArrayList<>(turnus2.getTrips());
-            trips2.remove(0); // remove depo start
-            trips2.remove(trips2.size() - 1); // remove depo end
+            trips2.remove(0);
+            trips2.remove(trips2.size() - 1);
 
             int from = random.nextInt(trips1.size());
             int length = random.nextInt(trips1.size() - from) + 1;
@@ -228,7 +218,6 @@ public class MemeticAlgorithm {
             Trip seq1FirstTrip = seq1.get(0);
             Trip seq1LastTrip = seq1.get(seq1.size() - 1);
 
-            // paralelna seq2 k seq1
             List<Trip> seq2 = new ArrayList<>();
             for (Trip trip2 : trips2) {
                 if (trip2.getStartTime() >= seq1FirstTrip.getStartTime() && trip2.getEndTime() <= seq1LastTrip.getEndTime()) {
@@ -251,7 +240,6 @@ public class MemeticAlgorithm {
                     notAdded.add(trip);
                 }
             }
-            //newTurnus1.addDepoEnd();
             mutated.addTurnus(newTurnus1);
 
             List<Trip> toBeAddedTrips2 = new ArrayList<>();
@@ -266,7 +254,6 @@ public class MemeticAlgorithm {
                     notAdded.add(trip);
                 }
             }
-            //newTurnus2.addDepoEnd();
             mutated.addTurnus(newTurnus2);
             mutated.addTrips(notAdded);
 
@@ -291,8 +278,8 @@ public class MemeticAlgorithm {
 
             Turnus turnus = localSearched.getTurnuses().get(random.nextInt(localSearched.getTurnuses().size()));
             List<Trip> trips = turnus.getTrips();
-            trips.remove(0);     // remove depo start
-            trips.remove(trips.size() - 1);     // remove depo end
+            trips.remove(0);
+            trips.remove(trips.size() - 1);
 
             localSearched.removeTurnus(turnus);
             localSearched.addTrips(trips);

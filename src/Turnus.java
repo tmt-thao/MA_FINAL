@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class Turnus {
     private List<TurnusElement> elements;
@@ -192,7 +193,9 @@ public class Turnus {
         sb.append("Turnus{\n");
 
         double currBattery = StaticData.MAX_BATTERY;
-        sb.append(String.format("%-100s", elements.get(0))).append("\tBattery: ").append(String.format("%7.3f", currBattery)).append("\n");
+        sb.append(String.format("%-100s", elements.get(0)))
+            .append("\tBattery: ")
+            .append(String.format(Locale.US, "%7.3f", currBattery)).append("\n");
 
         for (int i = 1; i < elements.size(); i++) {
             TurnusElement prevElem = elements.get(i - 1);
@@ -211,7 +214,7 @@ public class Turnus {
             }
 
             sb.append(String.format("%-100s", currElem));
-            sb.append("\tBattery: ").append(String.format("%7.3f", currBattery)).append("\n");
+            sb.append("\tBattery: ").append(String.format(Locale.US, "%7.3f", currBattery)).append("\n");
         }
 
         sb.append("Battery Status: ").append(finalBattery).append("\n");
