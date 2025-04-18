@@ -12,7 +12,7 @@ public class StaticData {
     public static double[][] matrixKm;
     public static int[][] matrixTime;
     public static final double CONSUMPTION_PER_KM = 1.5;    // 1.5, 2, 2
-    public static final double MIN_BATTERY = 0.0;
+    public static final double MIN_BATTERY = 0;
     public static final double MAX_BATTERY = 125.0;             // 125, 125, 100
 
     public static double getDeadheadEnergy(int from, int to) {
