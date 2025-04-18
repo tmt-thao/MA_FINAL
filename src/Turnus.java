@@ -39,7 +39,7 @@ public class Turnus {
 
     public Trip getLastTrip() {
         List<Trip> trips = getTrips();
-        return trips.get(trips.size() - 1); // urcite je v turnuse minimalne 1 trip, a to ranne depo
+        return trips.get(trips.size() - 1);
     }
 
     public List<ChargingEvent> getChargingEvents() {
@@ -61,16 +61,10 @@ public class Turnus {
         return null;
     }
 
-    public boolean isValid() {
-        double battery = StaticData.MAX_BATTERY;
-
-        for (int i = 1; i < elements.size(); i++) {
+    public boolean isValidAfterAddedTrip(double battery, int nextElemIndex) {
+        for (int i = nextElemIndex; i < elements.size(); i++) {
             TurnusElement prevElem = elements.get(i - 1);
             TurnusElement currElem = elements.get(i);
-
-            if (prevElem.getEndTime() > currElem.getStartTime()) {
-                return false;
-            }
 
             if (prevElem instanceof ChargingEvent && currElem instanceof ChargingEvent currCharger) {
                 battery += currCharger.getEnergy();
@@ -88,23 +82,6 @@ public class Turnus {
                 return false;
             }
         }
-        return true;
-    }
-
-    public boolean isValidAfterAddedTrip(double battery, int nextElemIndex) {
-        for (int i = nextElemIndex; i < elements.size(); i++) {
-            TurnusElement currElem = elements.get(i);
-
-            if (currElem instanceof Trip currTrip) {
-                battery -= currTrip.getEnergy();
-            } else if (currElem instanceof ChargingEvent currCharger) {
-                battery += currCharger.getEnergy();
-            }
-
-            if (battery < StaticData.MIN_BATTERY) {
-                return false;
-            }
-        }
 
         return true;
     }
@@ -114,13 +91,10 @@ public class Turnus {
         double battery = StaticData.MAX_BATTERY;
 
         for (int i = 1; i < elements.size(); i++) {
-
             TurnusElement prevElem = elements.get(i - 1);
             TurnusElement currElem = elements.get(i);
 
-            if (prevElem.getEndTime() > newTrip.getStartTime()) {
-                return false;
-            }
+            if (prevElem.getEndTime() > newTrip.getStartTime()) return false;
 
             if (prevElem instanceof ChargingEvent && currElem instanceof ChargingEvent currCharger) {
                 battery += currCharger.getEnergy();
@@ -143,15 +117,12 @@ public class Turnus {
             int newToCurrTime = newTrip.getEndTime() + StaticData.getTravelTime(newTrip.getEndStop(), currStop);
 
             if (battery + prevToNewBattery >= StaticData.MIN_BATTERY
-
                     && prevToNewTime <= newTrip.getStartTime()
                     && newToCurrTime <= currElem.getStartTime()
-
-                    && finalBattery - prevToCurrBattery + prevToNewBattery + newToCurrBattery - newTrip.getEnergy() >= StaticData.MIN_BATTERY
-                    ) {
+                    && finalBattery - prevToCurrBattery + prevToNewBattery + newToCurrBattery - newTrip.getEnergy() >= StaticData.MIN_BATTERY) {
                         
                 elements.add(i, newTrip);
-                finalBattery += -prevToCurrBattery + prevToNewBattery + newToCurrBattery - newTrip.getEnergy();
+                finalBattery += -prevToCurrBattery + prevToNewBattery + newToCurrBattery;
                 battery += prevToNewBattery;
 
                 List<ChargingEvent> candidateChargers = getCandidateChargers(prevToNewTime, freeChargers, newTrip, battery);
@@ -163,11 +134,11 @@ public class Turnus {
                 battery += chargersBattery - newTrip.getEnergy();
                 if (battery < StaticData.MIN_BATTERY || !isValidAfterAddedTrip(battery, i + 1)) {
                     elements.remove(newTrip);
-                    finalBattery -= -prevToCurrBattery + prevToNewBattery + newToCurrBattery - newTrip.getEnergy();
+                    finalBattery -= -prevToCurrBattery + prevToNewBattery + newToCurrBattery;
                     return false;
                 }
 
-                finalBattery += chargersBattery;
+                finalBattery += chargersBattery - newTrip.getEnergy();
                 for (ChargingEvent candidate : candidateChargers) {
                     freeChargers.remove(candidate);
                     elements.add(candidate);
@@ -175,6 +146,7 @@ public class Turnus {
                 elements.sort(Comparator.comparingInt(TurnusElement::getStartTime));
                 return true;
             }
+
             battery += prevToCurrBattery;
             battery += currElem instanceof Trip ? -currElem.getEnergy() : currElem.getEnergy();
         }
@@ -197,16 +169,10 @@ public class Turnus {
                     && chargingEvent.getEnergy() + finalBattery <= StaticData.MAX_BATTERY
                     && chargingEvent.getEnergy() + currBattery <= StaticData.MAX_BATTERY) {
                 candidates.add(chargingEvent);
-                //finalBattery += chargingEvent.getEnergy();
                 currBattery += chargingEvent.getEnergy();
             }
         }
 
-        for (ChargingEvent candidate : candidates) {
-            //freeChargers.remove(candidate);
-            //elements.add(candidate);
-        }
-        //elements.sort(Comparator.comparingInt(TurnusElement::getStartTime));
         return candidates;
     }
 
