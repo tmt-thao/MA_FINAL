@@ -11,6 +11,8 @@ public class StaticData {
 
     public static double[][] matrixKm;
     public static int[][] matrixTime;
+
+    public static ChargingStrategy chargingStrategy = ChargingStrategy.AT_END_STOP;
     public static double CONSUMPTION_PER_KM = 1.5;    // 1.5, 2, 2
     public static double MIN_BATTERY = 0;
     public static double MAX_BATTERY = 125.0;             // 125, 125, 100

@@ -16,7 +16,7 @@ public class AppGUI {
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("Memetic algorithm for electric bus scheduling");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850, 350);
+        frame.setSize(850, 400);
         frame.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
@@ -25,30 +25,34 @@ public class AppGUI {
 
         Dimension inputSize = new Dimension(120, 25);
 
-        // === Dataset + Output file + Scenario ===
+        // === Dataset, Output, Season, Charging strategy ===
         JComboBox<String> versionBox = new JComboBox<>(VERSIONS);
         JTextField outputFileField = new JTextField("output.txt");
         String[] seasons = { "Spring", "Summer", "Winter" };
         JComboBox<String> seasonBox = new JComboBox<>(seasons);
+        JComboBox<ChargingStrategy> strategyBox = new JComboBox<>(ChargingStrategy.values());
 
         versionBox.setPreferredSize(inputSize);
         outputFileField.setPreferredSize(inputSize);
         seasonBox.setPreferredSize(inputSize);
+        strategyBox.setPreferredSize(inputSize);
 
-        JPanel datasetPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel datasetPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         datasetPanel.add(new JLabel("Dataset:"));
         datasetPanel.add(versionBox);
         datasetPanel.add(new JLabel("Output file:"));
         datasetPanel.add(outputFileField);
-        datasetPanel.add(new JLabel("Scenario:"));
+        datasetPanel.add(new JLabel("Season:"));
         datasetPanel.add(seasonBox);
+        datasetPanel.add(new JLabel("Charging strategy:"));
+        datasetPanel.add(strategyBox);
         mainPanel.add(datasetPanel);
 
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         // === Replications ===
-        JTextField replicationsField = new JTextField("20");
+        JTextField replicationsField = new JTextField("5");
         replicationsField.setPreferredSize(inputSize);
         JPanel repPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         repPanel.add(new JLabel("Replications:"));
@@ -118,7 +122,7 @@ public class AppGUI {
                 try {
                     SwingUtilities.invokeLater(() -> loadingDialog.setVisible(true));
 
-                    // === APPLY BATTERY SETTINGS BASED ON SEASON ===
+                    // === Battery settings based on season ===
                     String season = (String) seasonBox.getSelectedItem();
                     switch (season) {
                         case "Spring":
@@ -135,6 +139,11 @@ public class AppGUI {
                             break;
                     }
 
+                    // === Charging strategy from dropdown ===
+                    ChargingStrategy selectedStrategy = (ChargingStrategy) strategyBox.getSelectedItem();
+                    StaticData.chargingStrategy = selectedStrategy;
+
+                    // === Algorithm parameters ===
                     String version = (String) versionBox.getSelectedItem();
                     int populationSize = Integer.parseInt(populationField.getText());
                     int generations = Integer.parseInt(generationsField.getText());
