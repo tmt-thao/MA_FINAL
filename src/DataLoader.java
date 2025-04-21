@@ -43,7 +43,7 @@ public class DataLoader {
             int endStop = StaticData.stopIdToIndex.get(Integer.parseInt(parts[5]));
             int startTime = Integer.parseInt(parts[6]);
             int endTime = Integer.parseInt(parts[7]);
-            double energy = Double.parseDouble(parts[9]);
+            double energy = Double.parseDouble(parts[9]) * StaticData.CONSUMPTION_PER_KM;
 
             StaticData.trips.add(new Trip(id, startStop, endStop, startTime, endTime, energy));
         }

@@ -34,42 +34,75 @@ public class Main {
             }
         }
 
+        String season;
+        if (StaticData.CONSUMPTION_PER_KM == 1.5) {
+            season = "Spring";
+        } else if (StaticData.CONSUMPTION_PER_KM == 2.0 && StaticData.MAX_BATTERY == 125.0) {
+            season = "Summer";
+        } else {
+            season = "Winter";
+        }
+
         System.out.println("\nBest solution: " + best);
-        System.out.println("Best turnuses: " + best.getTurnuses().size());
+
+        System.out.println("\nPopulation size: " + populationSize);
+        System.out.println("Generations: " + generations);
+        System.out.println("Mutation rate: " + mutationRate);
+        System.out.println("Local search rate: " + localSearchRate);
+
+        System.out.println("\nSeason: " + season);
+        System.out.println("Charging strategy: " + StaticData.CHARGING_STRATEGY);
+        
+        System.out.println("\nBest turnuses: " + best.getTurnuses().size());
         System.out.println("Best count: " + bestCount + "/" + replications);
         System.out.println("Trips: " + best.getUniqueTripsCount());
-        System.out.println("Version: " + version);
-        System.out.println();
+
+        System.out.println("\nDataset: " + version);
 
         try (FileWriter writer = new FileWriter(outputFilename)) {
             writer.write("Dataset: " + version + "\n");
-            writer.write("\nTurnuses: " + best.getTurnuses().size() + "\n");
+            
+            writer.write("\nSeason: " + season + "\n");
+            writer.write("Charging strategy: " + StaticData.CHARGING_STRATEGY + "\n");
+
+            writer.write("\nPopulation size: " + populationSize + "\n");
+            writer.write("Generations: " + generations + "\n");
+            writer.write("Mutation rate: " + mutationRate + "\n");
+            writer.write("Local search rate: " + localSearchRate + "\n");
+
+            writer.write("\nBest turnuses: " + best.getTurnuses().size() + "\n");
             writer.write("Best count: " + bestCount + "/" + replications + "\n");
             writer.write("Trips: " + best.getUniqueTripsCount() + "\n");
-            writer.write("\nSolution: " + best + "\n");
-            
-            
+
+            writer.write("\nBest solution: " + best + "\n");
         }
     }
 
     public static void main(String[] args) throws IOException {
-        String[] versions = {"B7_3", "A_4"};
+        String[] versions = {
+            "T1_3", "T2_3", "T3_3", "T4_3",
+            "B1_3", "B2_3", "B3_3", "B4_3", "B5_3", "B6_3", "B7_3",
+            "A_4"
+        };
+        
+        // int[] gens = {100, 300, 500};
+        // double[] mutRates = {0.2, 0.5, 0.8};
+        // double[] locSearchRates = {0.2, 0.5, 0.8};
         // int[] popSizes = {5, 50, 100};
-        int[] gens = {100, 300, 500};
-        double[] mutRates = {0.2, 0.5, 0.8};
-        double[] locSearchRates = {0.2, 0.5, 0.8};
 
+        int replications = 20;
         int popSize = 5;
-        //int gen = 500;
+        int gen = 500;
         double mutRate = 0.8;
         double locSearchRate = 0.8;
-        for (String version : versions) {
-            for (int gen : gens) {
-                runWithParams(version, 10, popSize, gen, mutRate, 10, locSearchRate, 10, 
-                version + "_" + popSize + "_" + gen + "_" + mutRate + "_" + locSearchRate + ".txt");
-            }
-        }
 
-        //runWithParams("T1_3", 5, 5, 500, 0.8, 10, 0.8, 10, "vystup.txt");
+        StaticData.CONSUMPTION_PER_KM = 2.0;
+        StaticData.MAX_BATTERY = 100.0;
+        StaticData.CHARGING_STRATEGY = ChargingStrategy.AT_START_STOP;
+
+        for (String version : versions) {
+            runWithParams(version, replications, popSize, gen, mutRate, 10, 
+            locSearchRate, 10, version + ".txt");
+        }
     }
 }

@@ -52,7 +52,7 @@ public class AppGUI {
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         // === Replications ===
-        JTextField replicationsField = new JTextField("5");
+        JTextField replicationsField = new JTextField("20");
         replicationsField.setPreferredSize(inputSize);
         JPanel repPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         repPanel.add(new JLabel("Replications:"));
@@ -141,7 +141,7 @@ public class AppGUI {
 
                     // === Charging strategy from dropdown ===
                     ChargingStrategy selectedStrategy = (ChargingStrategy) strategyBox.getSelectedItem();
-                    StaticData.chargingStrategy = selectedStrategy;
+                    StaticData.CHARGING_STRATEGY = selectedStrategy;
 
                     // === Algorithm parameters ===
                     String version = (String) versionBox.getSelectedItem();

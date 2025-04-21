@@ -1,0 +1,672 @@
+Dataset: T3_3
+
+Season: Winter
+Charging strategy: AT_START_STOP
+
+Population size: 5
+Generations: 500
+Mutation rate: 0.8
+Local search rate: 0.8
+
+Best turnuses: 24
+Best count: 1/20
+Trips: 213
+
+Best solution: Solution{
+1. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=7, startStop=88, endStop=45, startTime=322, endTime=356, energyConsumption=22,304}          	Battery:  75.254
+ChargingEvent{id=6, charger=2, stop=45, startTime=356, endTime=357, chargingSpeed=2.0}              	Battery:  77.202
+ChargingEvent{id=8, charger=2, stop=45, startTime=370, endTime=372, chargingSpeed=2.0}              	Battery:  81.202
+ChargingEvent{id=9, charger=2, stop=45, startTime=372, endTime=381, chargingSpeed=2.0}              	Battery:  99.202
+Trip{id=35, startStop=45, endStop=88, startTime=435, endTime=470, energyConsumption=22,432}         	Battery:  76.770
+Trip{id=45, startStop=88, endStop=45, startTime=472, endTime=506, energyConsumption=22,304}         	Battery:  54.246
+ChargingEvent{id=46, charger=3, stop=70, startTime=512, endTime=515, chargingSpeed=2.0}             	Battery:  49.570
+ChargingEvent{id=47, charger=3, stop=70, startTime=515, endTime=519, chargingSpeed=2.0}             	Battery:  57.570
+ChargingEvent{id=48, charger=3, stop=70, startTime=519, endTime=528, chargingSpeed=2.0}             	Battery:  75.570
+ChargingEvent{id=49, charger=3, stop=70, startTime=528, endTime=534, chargingSpeed=2.0}             	Battery:  87.570
+ChargingEvent{id=50, charger=3, stop=70, startTime=534, endTime=535, chargingSpeed=2.0}             	Battery:  89.570
+ChargingEvent{id=54, charger=3, stop=70, startTime=555, endTime=559, chargingSpeed=2.0}             	Battery:  97.570
+ChargingEvent{id=61, charger=3, stop=70, startTime=594, endTime=595, chargingSpeed=2.0}             	Battery:  99.570
+Trip{id=94, startStop=70, endStop=84, startTime=738, endTime=765, energyConsumption=14,742}         	Battery:  84.828
+Trip{id=99, startStop=84, endStop=70, startTime=770, endTime=795, energyConsumption=15,008}         	Battery:  69.820
+ChargingEvent{id=98, charger=3, stop=70, startTime=795, endTime=799, chargingSpeed=2.0}             	Battery:  77.750
+ChargingEvent{id=99, charger=3, stop=70, startTime=799, endTime=808, chargingSpeed=2.0}             	Battery:  95.750
+ChargingEvent{id=113, charger=3, stop=70, startTime=868, endTime=869, chargingSpeed=2.0}            	Battery:  97.750
+ChargingEvent{id=116, charger=3, stop=70, startTime=874, endTime=875, chargingSpeed=2.0}            	Battery:  99.750
+Trip{id=141, startStop=70, endStop=84, startTime=918, endTime=945, energyConsumption=14,742}        	Battery:  85.008
+Trip{id=149, startStop=84, endStop=70, startTime=950, endTime=975, energyConsumption=15,008}        	Battery:  70.000
+ChargingEvent{id=145, charger=3, stop=70, startTime=975, endTime=979, chargingSpeed=2.0}            	Battery:  77.930
+ChargingEvent{id=146, charger=3, stop=70, startTime=979, endTime=988, chargingSpeed=2.0}            	Battery:  95.930
+ChargingEvent{id=152, charger=3, stop=70, startTime=1008, endTime=1009, chargingSpeed=2.0}          	Battery:  97.930
+ChargingEvent{id=154, charger=3, stop=70, startTime=1014, endTime=1015, chargingSpeed=2.0}          	Battery:  99.930
+Trip{id=172, startStop=70, endStop=84, startTime=1038, endTime=1065, energyConsumption=14,742}      	Battery:  85.188
+ChargingEvent{id=165, charger=3, stop=70, startTime=1068, endTime=1073, chargingSpeed=2.0}          	Battery:  90.898
+ChargingEvent{id=166, charger=3, stop=70, startTime=1073, endTime=1074, chargingSpeed=2.0}          	Battery:  92.898
+ChargingEvent{id=167, charger=3, stop=70, startTime=1074, endTime=1075, chargingSpeed=2.0}          	Battery:  94.898
+Trip{id=180, startStop=70, endStop=84, startTime=1083, endTime=1107, energyConsumption=14,742}      	Battery:  80.156
+ChargingEvent{id=173, charger=3, stop=70, startTime=1110, endTime=1112, chargingSpeed=2.0}          	Battery:  79.866
+ChargingEvent{id=174, charger=3, stop=70, startTime=1112, endTime=1116, chargingSpeed=2.0}          	Battery:  87.866
+Trip{id=185, startStop=70, endStop=70, startTime=1122, endTime=1156, energyConsumption=21,158}      	Battery:  66.708
+ChargingEvent{id=181, charger=3, stop=70, startTime=1156, endTime=1170, chargingSpeed=2.0}          	Battery:  94.638
+Trip{id=193, startStop=70, endStop=84, startTime=1170, endTime=1194, energyConsumption=14,742}      	Battery:  79.896
+Trip{id=198, startStop=84, endStop=70, startTime=1210, endTime=1233, energyConsumption=15,008}      	Battery:  64.888
+ChargingEvent{id=192, charger=3, stop=70, startTime=1233, endTime=1246, chargingSpeed=2.0}          	Battery:  90.818
+Trip{id=204, startStop=70, endStop=70, startTime=1262, endTime=1296, energyConsumption=21,158}      	Battery:  69.660
+ChargingEvent{id=198, charger=3, stop=70, startTime=1296, endTime=1303, chargingSpeed=2.0}          	Battery:  83.590
+ChargingEvent{id=199, charger=3, stop=70, startTime=1303, endTime=1305, chargingSpeed=2.0}          	Battery:  87.590
+Trip{id=209, startStop=70, endStop=84, startTime=1320, endTime=1344, energyConsumption=14,742}      	Battery:  72.848
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  67.868
+Battery Status: 67.86800000000002
+}
+2. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=6, startStop=84, endStop=70, startTime=320, endTime=345, energyConsumption=15,008}          	Battery:  79.958
+ChargingEvent{id=3, charger=3, stop=70, startTime=345, endTime=348, chargingSpeed=2.0}              	Battery:  85.888
+ChargingEvent{id=4, charger=3, stop=70, startTime=348, endTime=349, chargingSpeed=2.0}              	Battery:  87.888
+ChargingEvent{id=5, charger=3, stop=70, startTime=349, endTime=354, chargingSpeed=2.0}              	Battery:  97.888
+Trip{id=16, startStop=70, endStop=70, startTime=362, endTime=399, energyConsumption=21,158}         	Battery:  76.730
+ChargingEvent{id=17, charger=3, stop=70, startTime=399, endTime=408, chargingSpeed=2.0}             	Battery:  94.660
+ChargingEvent{id=18, charger=3, stop=70, startTime=408, endTime=409, chargingSpeed=2.0}             	Battery:  96.660
+ChargingEvent{id=20, charger=3, stop=70, startTime=414, endTime=415, chargingSpeed=2.0}             	Battery:  98.660
+Trip{id=103, startStop=70, endStop=70, startTime=782, endTime=819, energyConsumption=21,158}        	Battery:  77.502
+ChargingEvent{id=104, charger=2, stop=45, startTime=825, endTime=832, chargingSpeed=2.0}            	Battery:  80.742
+ChargingEvent{id=105, charger=2, stop=45, startTime=832, endTime=837, chargingSpeed=2.0}            	Battery:  90.742
+ChargingEvent{id=106, charger=2, stop=45, startTime=837, endTime=841, chargingSpeed=2.0}            	Battery:  98.742
+Trip{id=134, startStop=45, endStop=88, startTime=895, endTime=930, energyConsumption=22,432}        	Battery:  76.310
+Trip{id=151, startStop=88, endStop=45, startTime=955, endTime=989, energyConsumption=22,304}        	Battery:  53.786
+ChargingEvent{id=149, charger=3, stop=70, startTime=995, endTime=999, chargingSpeed=2.0}            	Battery:  51.110
+ChargingEvent{id=150, charger=3, stop=70, startTime=999, endTime=1007, chargingSpeed=2.0}           	Battery:  67.110
+Trip{id=163, startStop=70, endStop=70, startTime=1007, endTime=1044, energyConsumption=21,158}      	Battery:  45.952
+ChargingEvent{id=159, charger=3, stop=70, startTime=1044, endTime=1047, chargingSpeed=2.0}          	Battery:  51.882
+ChargingEvent{id=160, charger=3, stop=70, startTime=1047, endTime=1048, chargingSpeed=2.0}          	Battery:  53.882
+ChargingEvent{id=161, charger=3, stop=70, startTime=1048, endTime=1055, chargingSpeed=2.0}          	Battery:  67.882
+Trip{id=175, startStop=70, endStop=84, startTime=1058, endTime=1085, energyConsumption=14,742}      	Battery:  53.140
+ChargingEvent{id=169, charger=3, stop=70, startTime=1088, endTime=1089, chargingSpeed=2.0}          	Battery:  50.850
+ChargingEvent{id=170, charger=3, stop=70, startTime=1089, endTime=1103, chargingSpeed=2.0}          	Battery:  78.850
+ChargingEvent{id=171, charger=3, stop=70, startTime=1103, endTime=1104, chargingSpeed=2.0}          	Battery:  80.850
+ChargingEvent{id=172, charger=3, stop=70, startTime=1104, endTime=1110, chargingSpeed=2.0}          	Battery:  92.850
+ChargingEvent{id=173, charger=3, stop=70, startTime=1110, endTime=1112, chargingSpeed=2.0}          	Battery:  96.850
+Trip{id=184, startStop=70, endStop=84, startTime=1118, endTime=1142, energyConsumption=14,742}      	Battery:  82.108
+ChargingEvent{id=179, charger=3, stop=70, startTime=1145, endTime=1148, chargingSpeed=2.0}          	Battery:  83.818
+ChargingEvent{id=180, charger=3, stop=70, startTime=1148, endTime=1156, chargingSpeed=2.0}          	Battery:  99.818
+Trip{id=201, startStop=70, endStop=70, startTime=1237, endTime=1271, energyConsumption=21,158}      	Battery:  78.660
+Trip{id=206, startStop=84, endStop=70, startTime=1280, endTime=1303, energyConsumption=15,008}      	Battery:  59.200
+ChargingEvent{id=199, charger=3, stop=70, startTime=1303, endTime=1305, chargingSpeed=2.0}          	Battery:  63.130
+ChargingEvent{id=200, charger=3, stop=70, startTime=1305, endTime=1312, chargingSpeed=2.0}          	Battery:  77.130
+Trip{id=211, startStop=70, endStop=70, startTime=1327, endTime=1361, energyConsumption=21,158}      	Battery:  55.972
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  48.956
+Battery Status: 48.956
+}
+3. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=9, startStop=70, endStop=84, startTime=338, endTime=365, energyConsumption=14,742}          	Battery:  78.166
+Trip{id=17, startStop=84, endStop=70, startTime=370, endTime=395, energyConsumption=15,008}         	Battery:  63.158
+Trip{id=30, startStop=88, endStop=45, startTime=412, endTime=446, energyConsumption=22,304}         	Battery:  33.594
+ChargingEvent{id=28, charger=2, stop=45, startTime=446, endTime=447, chargingSpeed=2.0}             	Battery:  35.542
+ChargingEvent{id=29, charger=2, stop=45, startTime=447, endTime=452, chargingSpeed=2.0}             	Battery:  45.542
+ChargingEvent{id=30, charger=2, stop=45, startTime=452, endTime=455, chargingSpeed=2.0}             	Battery:  51.542
+ChargingEvent{id=31, charger=2, stop=45, startTime=455, endTime=461, chargingSpeed=2.0}             	Battery:  63.542
+ChargingEvent{id=32, charger=2, stop=45, startTime=461, endTime=465, chargingSpeed=2.0}             	Battery:  71.542
+ChargingEvent{id=33, charger=2, stop=45, startTime=465, endTime=472, chargingSpeed=2.0}             	Battery:  85.542
+ChargingEvent{id=34, charger=2, stop=45, startTime=472, endTime=475, chargingSpeed=2.0}             	Battery:  91.542
+ChargingEvent{id=35, charger=2, stop=45, startTime=475, endTime=476, chargingSpeed=2.0}             	Battery:  93.542
+ChargingEvent{id=36, charger=2, stop=45, startTime=476, endTime=477, chargingSpeed=2.0}             	Battery:  95.542
+Trip{id=49, startStop=45, endStop=88, startTime=495, endTime=530, energyConsumption=22,432}         	Battery:  73.110
+Trip{id=56, startStop=88, endStop=45, startTime=532, endTime=566, energyConsumption=22,304}         	Battery:  50.586
+ChargingEvent{id=56, charger=2, stop=45, startTime=566, endTime=572, chargingSpeed=2.0}             	Battery:  62.534
+ChargingEvent{id=57, charger=2, stop=45, startTime=572, endTime=581, chargingSpeed=2.0}             	Battery:  80.534
+ChargingEvent{id=58, charger=2, stop=45, startTime=581, endTime=585, chargingSpeed=2.0}             	Battery:  88.534
+ChargingEvent{id=60, charger=2, stop=45, startTime=592, endTime=597, chargingSpeed=2.0}             	Battery:  98.534
+Trip{id=71, startStop=45, endStop=88, startTime=615, endTime=650, energyConsumption=22,432}         	Battery:  76.102
+Trip{id=78, startStop=88, endStop=45, startTime=652, endTime=686, energyConsumption=22,304}         	Battery:  53.578
+ChargingEvent{id=79, charger=3, stop=70, startTime=692, endTime=695, chargingSpeed=2.0}             	Battery:  48.902
+ChargingEvent{id=80, charger=3, stop=70, startTime=695, endTime=699, chargingSpeed=2.0}             	Battery:  56.902
+Trip{id=87, startStop=70, endStop=70, startTime=702, endTime=739, energyConsumption=21,158}         	Battery:  35.744
+ChargingEvent{id=88, charger=3, stop=70, startTime=739, endTime=748, chargingSpeed=2.0}             	Battery:  53.674
+ChargingEvent{id=89, charger=3, stop=70, startTime=748, endTime=752, chargingSpeed=2.0}             	Battery:  61.674
+ChargingEvent{id=90, charger=3, stop=70, startTime=752, endTime=755, chargingSpeed=2.0}             	Battery:  67.674
+ChargingEvent{id=91, charger=3, stop=70, startTime=755, endTime=759, chargingSpeed=2.0}             	Battery:  75.674
+ChargingEvent{id=92, charger=3, stop=70, startTime=759, endTime=768, chargingSpeed=2.0}             	Battery:  93.674
+ChargingEvent{id=94, charger=3, stop=70, startTime=774, endTime=775, chargingSpeed=2.0}             	Battery:  95.674
+ChargingEvent{id=101, charger=3, stop=70, startTime=812, endTime=814, chargingSpeed=2.0}            	Battery:  99.674
+Trip{id=147, startStop=70, endStop=84, startTime=938, endTime=965, energyConsumption=14,742}        	Battery:  84.932
+ChargingEvent{id=142, charger=3, stop=70, startTime=968, endTime=969, chargingSpeed=2.0}            	Battery:  82.642
+ChargingEvent{id=143, charger=3, stop=70, startTime=969, endTime=972, chargingSpeed=2.0}            	Battery:  88.642
+ChargingEvent{id=144, charger=3, stop=70, startTime=972, endTime=975, chargingSpeed=2.0}            	Battery:  94.642
+Trip{id=158, startStop=70, endStop=84, startTime=978, endTime=1005, energyConsumption=14,742}       	Battery:  79.900
+Trip{id=164, startStop=88, endStop=45, startTime=1007, endTime=1041, energyConsumption=22,304}      	Battery:  54.788
+ChargingEvent{id=155, charger=2, stop=45, startTime=1041, endTime=1050, chargingSpeed=2.0}          	Battery:  72.736
+ChargingEvent{id=156, charger=2, stop=45, startTime=1050, endTime=1052, chargingSpeed=2.0}          	Battery:  76.736
+ChargingEvent{id=157, charger=2, stop=45, startTime=1052, endTime=1061, chargingSpeed=2.0}          	Battery:  94.736
+ChargingEvent{id=162, charger=2, stop=45, startTime=1080, endTime=1081, chargingSpeed=2.0}          	Battery:  96.736
+ChargingEvent{id=167, charger=2, stop=45, startTime=1109, endTime=1110, chargingSpeed=2.0}          	Battery:  98.736
+Trip{id=200, startStop=45, endStop=88, startTime=1235, endTime=1266, energyConsumption=22,432}      	Battery:  76.304
+Trip{id=205, startStop=88, endStop=45, startTime=1267, endTime=1299, energyConsumption=22,304}      	Battery:  53.780
+Trip{id=210, startStop=84, endStop=70, startTime=1323, endTime=1346, energyConsumption=15,008}      	Battery:  27.544
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  20.528
+Battery Status: 20.528000000000027
+}
+4. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+ChargingEvent{id=3, charger=2, stop=45, startTime=351, endTime=352, chargingSpeed=2.0}              	Battery:  92.244
+ChargingEvent{id=4, charger=2, stop=45, startTime=352, endTime=355, chargingSpeed=2.0}              	Battery:  98.244
+Trip{id=93, startStop=45, endStop=88, startTime=735, endTime=770, energyConsumption=22,432}         	Battery:  75.812
+Trip{id=100, startStop=88, endStop=45, startTime=772, endTime=806, energyConsumption=22,304}        	Battery:  53.288
+Trip{id=109, startStop=45, endStop=88, startTime=810, endTime=845, energyConsumption=22,432}        	Battery:  30.804
+Trip{id=125, startStop=84, endStop=70, startTime=870, endTime=895, energyConsumption=15,008}        	Battery:  12.984
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   5.968
+Battery Status: 5.968000000000011
+}
+5. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=5, startStop=70, endStop=84, startTime=318, endTime=345, energyConsumption=14,742}          	Battery:  78.166
+ChargingEvent{id=6, charger=3, stop=70, startTime=354, endTime=362, chargingSpeed=2.0}              	Battery:  89.876
+ChargingEvent{id=7, charger=3, stop=70, startTime=362, endTime=364, chargingSpeed=2.0}              	Battery:  93.876
+ChargingEvent{id=13, charger=3, stop=70, startTime=388, endTime=389, chargingSpeed=2.0}             	Battery:  95.876
+ChargingEvent{id=24, charger=3, stop=70, startTime=428, endTime=429, chargingSpeed=2.0}             	Battery:  97.876
+ChargingEvent{id=29, charger=3, stop=70, startTime=448, endTime=449, chargingSpeed=2.0}             	Battery:  99.876
+Trip{id=40, startStop=70, endStop=70, startTime=452, endTime=489, energyConsumption=21,158}         	Battery:  78.718
+ChargingEvent{id=41, charger=3, stop=70, startTime=489, endTime=495, chargingSpeed=2.0}             	Battery:  90.648
+ChargingEvent{id=42, charger=3, stop=70, startTime=495, endTime=499, chargingSpeed=2.0}             	Battery:  98.648
+Trip{id=51, startStop=70, endStop=70, startTime=502, endTime=539, energyConsumption=21,158}         	Battery:  77.490
+Trip{id=63, startStop=84, endStop=70, startTime=570, endTime=595, energyConsumption=15,008}         	Battery:  58.030
+Trip{id=68, startStop=70, endStop=84, startTime=598, endTime=625, energyConsumption=14,742}         	Battery:  43.218
+ChargingEvent{id=67, charger=3, stop=70, startTime=628, endTime=632, chargingSpeed=2.0}             	Battery:  46.928
+ChargingEvent{id=68, charger=3, stop=70, startTime=632, endTime=635, chargingSpeed=2.0}             	Battery:  52.928
+ChargingEvent{id=69, charger=3, stop=70, startTime=635, endTime=639, chargingSpeed=2.0}             	Battery:  60.928
+ChargingEvent{id=70, charger=3, stop=70, startTime=639, endTime=648, chargingSpeed=2.0}             	Battery:  78.928
+ChargingEvent{id=71, charger=3, stop=70, startTime=648, endTime=654, chargingSpeed=2.0}             	Battery:  90.928
+ChargingEvent{id=72, charger=3, stop=70, startTime=654, endTime=655, chargingSpeed=2.0}             	Battery:  92.928
+Trip{id=86, startStop=70, endStop=84, startTime=698, endTime=725, energyConsumption=14,742}         	Battery:  78.186
+ChargingEvent{id=86, charger=3, stop=70, startTime=728, endTime=735, chargingSpeed=2.0}             	Battery:  87.896
+ChargingEvent{id=87, charger=3, stop=70, startTime=735, endTime=739, chargingSpeed=2.0}             	Battery:  95.896
+ChargingEvent{id=102, charger=3, stop=70, startTime=814, endTime=815, chargingSpeed=2.0}            	Battery:  97.896
+Trip{id=114, startStop=70, endStop=70, startTime=832, endTime=869, energyConsumption=21,158}        	Battery:  76.738
+ChargingEvent{id=114, charger=3, stop=70, startTime=869, endTime=872, chargingSpeed=2.0}            	Battery:  82.668
+Trip{id=127, startStop=70, endStop=70, startTime=872, endTime=909, energyConsumption=21,158}        	Battery:  61.510
+ChargingEvent{id=126, charger=2, stop=45, startTime=915, endTime=921, chargingSpeed=2.0}            	Battery:  62.750
+ChargingEvent{id=127, charger=2, stop=45, startTime=921, endTime=925, chargingSpeed=2.0}            	Battery:  70.750
+ChargingEvent{id=128, charger=2, stop=45, startTime=925, endTime=926, chargingSpeed=2.0}            	Battery:  72.750
+Trip{id=144, startStop=45, endStop=88, startTime=930, endTime=965, energyConsumption=22,432}        	Battery:  50.318
+Trip{id=154, startStop=88, endStop=45, startTime=967, endTime=1001, energyConsumption=22,304}       	Battery:  27.794
+ChargingEvent{id=148, charger=2, stop=45, startTime=1001, endTime=1005, chargingSpeed=2.0}          	Battery:  35.742
+ChargingEvent{id=149, charger=2, stop=45, startTime=1005, endTime=1012, chargingSpeed=2.0}          	Battery:  49.742
+ChargingEvent{id=150, charger=2, stop=45, startTime=1012, endTime=1020, chargingSpeed=2.0}          	Battery:  65.742
+ChargingEvent{id=151, charger=2, stop=45, startTime=1020, endTime=1021, chargingSpeed=2.0}          	Battery:  67.742
+ChargingEvent{id=152, charger=2, stop=45, startTime=1021, endTime=1032, chargingSpeed=2.0}          	Battery:  89.742
+ChargingEvent{id=153, charger=2, stop=45, startTime=1032, endTime=1035, chargingSpeed=2.0}          	Battery:  95.742
+Trip{id=170, startStop=45, endStop=88, startTime=1035, endTime=1069, energyConsumption=22,432}      	Battery:  73.310
+Trip{id=183, startStop=84, endStop=70, startTime=1105, endTime=1128, energyConsumption=15,008}      	Battery:  55.490
+Trip{id=190, startStop=84, endStop=70, startTime=1150, endTime=1173, energyConsumption=15,008}      	Battery:  36.030
+ChargingEvent{id=183, charger=3, stop=70, startTime=1173, endTime=1176, chargingSpeed=2.0}          	Battery:  41.960
+Trip{id=195, startStop=70, endStop=70, startTime=1187, endTime=1221, energyConsumption=21,158}      	Battery:  20.802
+ChargingEvent{id=189, charger=3, stop=70, startTime=1221, endTime=1230, chargingSpeed=2.0}          	Battery:  38.732
+ChargingEvent{id=190, charger=3, stop=70, startTime=1230, endTime=1232, chargingSpeed=2.0}          	Battery:  42.732
+ChargingEvent{id=191, charger=3, stop=70, startTime=1232, endTime=1233, chargingSpeed=2.0}          	Battery:  44.732
+Trip{id=203, startStop=70, endStop=84, startTime=1245, endTime=1269, energyConsumption=14,742}      	Battery:  29.990
+Trip{id=207, startStop=70, endStop=84, startTime=1285, endTime=1309, energyConsumption=14,742}      	Battery:  10.958
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   5.978
+Battery Status: 5.977999999999977
+}
+6. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+ChargingEvent{id=14, charger=3, stop=70, startTime=389, endTime=392, chargingSpeed=2.0}             	Battery:  98.908
+Trip{id=34, startStop=70, endStop=70, startTime=432, endTime=469, energyConsumption=21,158}         	Battery:  77.750
+ChargingEvent{id=35, charger=3, stop=70, startTime=469, endTime=474, chargingSpeed=2.0}             	Battery:  87.680
+ChargingEvent{id=36, charger=3, stop=70, startTime=474, endTime=475, chargingSpeed=2.0}             	Battery:  89.680
+Trip{id=46, startStop=70, endStop=84, startTime=478, endTime=505, energyConsumption=14,742}         	Battery:  74.938
+Trip{id=52, startStop=84, endStop=70, startTime=510, endTime=535, energyConsumption=15,008}         	Battery:  59.930
+ChargingEvent{id=51, charger=3, stop=70, startTime=535, endTime=539, chargingSpeed=2.0}             	Battery:  67.860
+ChargingEvent{id=52, charger=3, stop=70, startTime=539, endTime=548, chargingSpeed=2.0}             	Battery:  85.860
+ChargingEvent{id=53, charger=3, stop=70, startTime=548, endTime=555, chargingSpeed=2.0}             	Battery:  99.860
+Trip{id=97, startStop=70, endStop=84, startTime=758, endTime=785, energyConsumption=14,742}         	Battery:  85.118
+Trip{id=110, startStop=88, endStop=45, startTime=815, endTime=849, energyConsumption=22,304}        	Battery:  60.006
+ChargingEvent{id=109, charger=2, stop=45, startTime=849, endTime=852, chargingSpeed=2.0}            	Battery:  65.954
+Trip{id=122, startStop=45, endStop=88, startTime=855, endTime=890, energyConsumption=22,432}        	Battery:  43.522
+ChargingEvent{id=122, charger=3, stop=70, startTime=894, endTime=895, chargingSpeed=2.0}            	Battery:  38.974
+ChargingEvent{id=123, charger=3, stop=70, startTime=895, endTime=899, chargingSpeed=2.0}            	Battery:  46.974
+ChargingEvent{id=124, charger=3, stop=70, startTime=899, endTime=908, chargingSpeed=2.0}            	Battery:  64.974
+ChargingEvent{id=125, charger=3, stop=70, startTime=908, endTime=909, chargingSpeed=2.0}            	Battery:  66.974
+ChargingEvent{id=126, charger=3, stop=70, startTime=909, endTime=912, chargingSpeed=2.0}            	Battery:  72.974
+ChargingEvent{id=127, charger=3, stop=70, startTime=912, endTime=915, chargingSpeed=2.0}            	Battery:  78.974
+ChargingEvent{id=128, charger=3, stop=70, startTime=915, endTime=919, chargingSpeed=2.0}            	Battery:  86.974
+ChargingEvent{id=130, charger=3, stop=70, startTime=928, endTime=929, chargingSpeed=2.0}            	Battery:  88.974
+ChargingEvent{id=131, charger=3, stop=70, startTime=929, endTime=932, chargingSpeed=2.0}            	Battery:  94.974
+ChargingEvent{id=132, charger=3, stop=70, startTime=932, endTime=934, chargingSpeed=2.0}            	Battery:  98.974
+Trip{id=167, startStop=70, endStop=70, startTime=1022, endTime=1059, energyConsumption=21,158}      	Battery:  77.816
+Trip{id=177, startStop=88, endStop=45, startTime=1072, endTime=1106, energyConsumption=22,304}      	Battery:  48.252
+Trip{id=187, startStop=88, endStop=45, startTime=1132, endTime=1164, energyConsumption=22,304}      	Battery:  14.820
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   5.168
+Battery Status: 5.1680000000000135
+}
+7. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=8, startStop=70, endStop=70, startTime=327, endTime=364, energyConsumption=21,158}          	Battery:  71.750
+ChargingEvent{id=8, charger=3, stop=70, startTime=364, endTime=368, chargingSpeed=2.0}              	Battery:  79.680
+ChargingEvent{id=9, charger=3, stop=70, startTime=368, endTime=375, chargingSpeed=2.0}              	Battery:  93.680
+ChargingEvent{id=15, charger=3, stop=70, startTime=392, endTime=395, chargingSpeed=2.0}             	Battery:  99.680
+Trip{id=32, startStop=70, endStop=70, startTime=422, endTime=459, energyConsumption=21,158}         	Battery:  78.522
+ChargingEvent{id=37, charger=2, stop=45, startTime=477, endTime=481, chargingSpeed=2.0}             	Battery:  75.762
+ChargingEvent{id=38, charger=2, stop=45, startTime=481, endTime=485, chargingSpeed=2.0}             	Battery:  83.762
+ChargingEvent{id=39, charger=2, stop=45, startTime=485, endTime=492, chargingSpeed=2.0}             	Battery:  97.762
+ChargingEvent{id=43, charger=2, stop=45, startTime=505, endTime=506, chargingSpeed=2.0}             	Battery:  99.762
+Trip{id=82, startStop=45, endStop=88, startTime=675, endTime=710, energyConsumption=22,432}         	Battery:  77.330
+Trip{id=89, startStop=88, endStop=45, startTime=712, endTime=746, energyConsumption=22,304}         	Battery:  54.806
+ChargingEvent{id=89, charger=2, stop=45, startTime=746, endTime=752, chargingSpeed=2.0}             	Battery:  66.754
+ChargingEvent{id=90, charger=2, stop=45, startTime=752, endTime=761, chargingSpeed=2.0}             	Battery:  84.754
+ChargingEvent{id=91, charger=2, stop=45, startTime=761, endTime=765, chargingSpeed=2.0}             	Battery:  92.754
+Trip{id=101, startStop=45, endStop=88, startTime=775, endTime=810, energyConsumption=22,432}        	Battery:  70.322
+ChargingEvent{id=103, charger=3, stop=70, startTime=815, endTime=819, chargingSpeed=2.0}            	Battery:  71.774
+ChargingEvent{id=104, charger=3, stop=70, startTime=819, endTime=828, chargingSpeed=2.0}            	Battery:  89.774
+ChargingEvent{id=106, charger=3, stop=70, startTime=834, endTime=835, chargingSpeed=2.0}            	Battery:  91.774
+ChargingEvent{id=107, charger=3, stop=70, startTime=835, endTime=839, chargingSpeed=2.0}            	Battery:  99.774
+Trip{id=123, startStop=70, endStop=84, startTime=858, endTime=885, energyConsumption=14,742}        	Battery:  85.032
+ChargingEvent{id=120, charger=3, stop=70, startTime=888, endTime=889, chargingSpeed=2.0}            	Battery:  82.742
+ChargingEvent{id=121, charger=3, stop=70, startTime=889, endTime=894, chargingSpeed=2.0}            	Battery:  92.742
+Trip{id=135, startStop=70, endStop=84, startTime=898, endTime=925, energyConsumption=14,742}        	Battery:  78.000
+Trip{id=143, startStop=84, endStop=70, startTime=930, endTime=955, energyConsumption=15,008}        	Battery:  62.992
+Trip{id=152, startStop=70, endStop=84, startTime=958, endTime=985, energyConsumption=14,742}        	Battery:  48.180
+Trip{id=159, startStop=84, endStop=70, startTime=990, endTime=1015, energyConsumption=15,008}       	Battery:  33.172
+Trip{id=169, startStop=84, endStop=70, startTime=1030, endTime=1055, energyConsumption=15,008}      	Battery:  13.712
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   6.696
+Battery Status: 6.696000000000012
+}
+8. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=1, startStop=70, endStop=70, startTime=297, endTime=334, energyConsumption=21,158}          	Battery:  71.750
+ChargingEvent{id=1, charger=3, stop=70, startTime=334, endTime=339, chargingSpeed=2.0}              	Battery:  81.680
+ChargingEvent{id=2, charger=3, stop=70, startTime=339, endTime=345, chargingSpeed=2.0}              	Battery:  93.680
+Trip{id=26, startStop=70, endStop=70, startTime=402, endTime=439, energyConsumption=21,158}         	Battery:  72.522
+ChargingEvent{id=27, charger=3, stop=70, startTime=439, endTime=444, chargingSpeed=2.0}             	Battery:  82.452
+ChargingEvent{id=28, charger=3, stop=70, startTime=444, endTime=448, chargingSpeed=2.0}             	Battery:  90.452
+ChargingEvent{id=30, charger=3, stop=70, startTime=449, endTime=452, chargingSpeed=2.0}             	Battery:  96.452
+ChargingEvent{id=34, charger=3, stop=70, startTime=468, endTime=469, chargingSpeed=2.0}             	Battery:  98.452
+Trip{id=53, startStop=70, endStop=84, startTime=518, endTime=545, energyConsumption=14,742}         	Battery:  83.710
+Trip{id=59, startStop=84, endStop=70, startTime=550, endTime=575, energyConsumption=15,008}         	Battery:  68.702
+Trip{id=64, startStop=70, endStop=84, startTime=578, endTime=605, energyConsumption=14,742}         	Battery:  53.890
+Trip{id=74, startStop=84, endStop=70, startTime=630, endTime=655, energyConsumption=15,008}         	Battery:  38.882
+ChargingEvent{id=73, charger=3, stop=70, startTime=655, endTime=659, chargingSpeed=2.0}             	Battery:  46.812
+ChargingEvent{id=74, charger=3, stop=70, startTime=659, endTime=668, chargingSpeed=2.0}             	Battery:  64.812
+ChargingEvent{id=75, charger=3, stop=70, startTime=668, endTime=675, chargingSpeed=2.0}             	Battery:  78.812
+ChargingEvent{id=76, charger=3, stop=70, startTime=675, endTime=679, chargingSpeed=2.0}             	Battery:  86.812
+ChargingEvent{id=78, charger=3, stop=70, startTime=688, endTime=692, chargingSpeed=2.0}             	Battery:  94.812
+ChargingEvent{id=83, charger=3, stop=70, startTime=714, endTime=715, chargingSpeed=2.0}             	Battery:  96.812
+Trip{id=102, startStop=70, endStop=84, startTime=778, endTime=805, energyConsumption=14,742}        	Battery:  82.070
+Trip{id=108, startStop=84, endStop=70, startTime=810, endTime=835, energyConsumption=15,008}        	Battery:  67.062
+ChargingEvent{id=108, charger=3, stop=70, startTime=839, endTime=848, chargingSpeed=2.0}            	Battery:  84.992
+ChargingEvent{id=109, charger=3, stop=70, startTime=848, endTime=849, chargingSpeed=2.0}            	Battery:  86.992
+ChargingEvent{id=110, charger=3, stop=70, startTime=849, endTime=855, chargingSpeed=2.0}            	Battery:  98.992
+Trip{id=124, startStop=70, endStop=70, startTime=862, endTime=899, energyConsumption=21,158}        	Battery:  77.834
+Trip{id=138, startStop=84, endStop=70, startTime=910, endTime=935, energyConsumption=15,008}        	Battery:  58.374
+ChargingEvent{id=134, charger=3, stop=70, startTime=935, endTime=939, chargingSpeed=2.0}            	Battery:  66.304
+ChargingEvent{id=135, charger=3, stop=70, startTime=939, endTime=947, chargingSpeed=2.0}            	Battery:  82.304
+ChargingEvent{id=136, charger=3, stop=70, startTime=947, endTime=948, chargingSpeed=2.0}            	Battery:  84.304
+ChargingEvent{id=137, charger=3, stop=70, startTime=948, endTime=949, chargingSpeed=2.0}            	Battery:  86.304
+ChargingEvent{id=138, charger=3, stop=70, startTime=949, endTime=954, chargingSpeed=2.0}            	Battery:  96.304
+ChargingEvent{id=139, charger=3, stop=70, startTime=954, endTime=955, chargingSpeed=2.0}            	Battery:  98.304
+Trip{id=166, startStop=70, endStop=84, startTime=1018, endTime=1045, energyConsumption=14,742}      	Battery:  83.562
+Trip{id=173, startStop=84, endStop=70, startTime=1050, endTime=1075, energyConsumption=15,008}      	Battery:  68.554
+ChargingEvent{id=168, charger=3, stop=70, startTime=1075, endTime=1088, chargingSpeed=2.0}          	Battery:  94.484
+Trip{id=182, startStop=70, endStop=70, startTime=1102, endTime=1136, energyConsumption=21,158}      	Battery:  73.326
+ChargingEvent{id=178, charger=3, stop=70, startTime=1136, endTime=1145, chargingSpeed=2.0}          	Battery:  91.256
+Trip{id=192, startStop=70, endStop=70, startTime=1162, endTime=1196, energyConsumption=21,158}      	Battery:  70.098
+ChargingEvent{id=186, charger=3, stop=70, startTime=1196, endTime=1197, chargingSpeed=2.0}          	Battery:  72.028
+ChargingEvent{id=187, charger=3, stop=70, startTime=1197, endTime=1198, chargingSpeed=2.0}          	Battery:  74.028
+Trip{id=197, startStop=70, endStop=84, startTime=1205, endTime=1229, energyConsumption=14,742}      	Battery:  59.286
+Trip{id=202, startStop=84, endStop=70, startTime=1245, endTime=1268, energyConsumption=15,008}      	Battery:  44.278
+ChargingEvent{id=194, charger=3, stop=70, startTime=1268, endTime=1270, chargingSpeed=2.0}          	Battery:  48.208
+ChargingEvent{id=195, charger=3, stop=70, startTime=1270, endTime=1271, chargingSpeed=2.0}          	Battery:  50.208
+ChargingEvent{id=196, charger=3, stop=70, startTime=1271, endTime=1272, chargingSpeed=2.0}          	Battery:  52.208
+Trip{id=208, startStop=70, endStop=70, startTime=1292, endTime=1326, energyConsumption=21,158}      	Battery:  31.050
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  24.034
+Battery Status: 24.03399999999997
+}
+9. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=21, startStop=70, endStop=70, startTime=382, endTime=419, energyConsumption=21,158}         	Battery:  71.750
+ChargingEvent{id=22, charger=3, stop=70, startTime=419, endTime=422, chargingSpeed=2.0}             	Battery:  77.680
+ChargingEvent{id=23, charger=3, stop=70, startTime=422, endTime=428, chargingSpeed=2.0}             	Battery:  89.680
+ChargingEvent{id=26, charger=3, stop=70, startTime=435, endTime=439, chargingSpeed=2.0}             	Battery:  97.680
+ChargingEvent{id=40, charger=3, stop=70, startTime=488, endTime=489, chargingSpeed=2.0}             	Battery:  99.680
+Trip{id=79, startStop=70, endStop=84, startTime=658, endTime=685, energyConsumption=14,742}         	Battery:  84.938
+Trip{id=85, startStop=84, endStop=70, startTime=690, endTime=715, energyConsumption=15,008}         	Battery:  69.930
+Trip{id=92, startStop=84, endStop=70, startTime=730, endTime=755, energyConsumption=15,008}         	Battery:  50.470
+Trip{id=98, startStop=70, endStop=70, startTime=762, endTime=799, energyConsumption=21,158}         	Battery:  29.242
+Trip{id=113, startStop=84, endStop=70, startTime=830, endTime=855, energyConsumption=15,008}        	Battery:   9.782
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   2.766
+Battery Status: 2.7659999999999982
+}
+10. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=12, startStop=84, endStop=70, startTime=350, endTime=375, energyConsumption=15,008}         	Battery:  79.958
+Trip{id=20, startStop=70, endStop=84, startTime=378, endTime=405, energyConsumption=14,742}         	Battery:  65.146
+Trip{id=28, startStop=84, endStop=70, startTime=410, endTime=435, energyConsumption=15,008}         	Battery:  50.138
+ChargingEvent{id=31, charger=3, stop=70, startTime=452, endTime=455, chargingSpeed=2.0}             	Battery:  56.068
+ChargingEvent{id=32, charger=3, stop=70, startTime=455, endTime=459, chargingSpeed=2.0}             	Battery:  64.068
+ChargingEvent{id=33, charger=3, stop=70, startTime=459, endTime=468, chargingSpeed=2.0}             	Battery:  82.068
+ChargingEvent{id=38, charger=3, stop=70, startTime=479, endTime=482, chargingSpeed=2.0}             	Battery:  88.068
+Trip{id=80, startStop=70, endStop=70, startTime=662, endTime=699, energyConsumption=21,158}         	Battery:  66.910
+ChargingEvent{id=81, charger=3, stop=70, startTime=699, endTime=708, chargingSpeed=2.0}             	Battery:  84.840
+Trip{id=90, startStop=70, endStop=84, startTime=718, endTime=745, energyConsumption=14,742}         	Battery:  70.098
+Trip{id=96, startStop=84, endStop=70, startTime=750, endTime=775, energyConsumption=15,008}         	Battery:  55.090
+ChargingEvent{id=95, charger=3, stop=70, startTime=775, endTime=779, chargingSpeed=2.0}             	Battery:  63.020
+ChargingEvent{id=96, charger=3, stop=70, startTime=779, endTime=788, chargingSpeed=2.0}             	Battery:  81.020
+Trip{id=106, startStop=70, endStop=84, startTime=798, endTime=825, energyConsumption=14,742}        	Battery:  66.278
+Trip{id=115, startStop=88, endStop=45, startTime=832, endTime=866, energyConsumption=22,304}        	Battery:  41.166
+ChargingEvent{id=113, charger=2, stop=45, startTime=866, endTime=872, chargingSpeed=2.0}            	Battery:  53.114
+ChargingEvent{id=114, charger=2, stop=45, startTime=872, endTime=875, chargingSpeed=2.0}            	Battery:  59.114
+ChargingEvent{id=115, charger=2, stop=45, startTime=875, endTime=877, chargingSpeed=2.0}            	Battery:  63.114
+ChargingEvent{id=116, charger=2, stop=45, startTime=877, endTime=881, chargingSpeed=2.0}            	Battery:  71.114
+ChargingEvent{id=117, charger=2, stop=45, startTime=881, endTime=885, chargingSpeed=2.0}            	Battery:  79.114
+ChargingEvent{id=119, charger=2, stop=45, startTime=892, endTime=895, chargingSpeed=2.0}            	Battery:  85.114
+ChargingEvent{id=120, charger=2, stop=45, startTime=895, endTime=897, chargingSpeed=2.0}            	Battery:  89.114
+Trip{id=140, startStop=45, endStop=88, startTime=915, endTime=950, energyConsumption=22,432}        	Battery:  66.682
+ChargingEvent{id=140, charger=3, stop=70, startTime=955, endTime=959, chargingSpeed=2.0}            	Battery:  68.134
+Trip{id=153, startStop=70, endStop=70, startTime=962, endTime=999, energyConsumption=21,158}        	Battery:  46.976
+Trip{id=165, startStop=84, endStop=70, startTime=1010, endTime=1035, energyConsumption=15,008}      	Battery:  27.516
+ChargingEvent{id=158, charger=3, stop=70, startTime=1035, endTime=1044, chargingSpeed=2.0}          	Battery:  45.446
+Trip{id=174, startStop=70, endStop=70, startTime=1052, endTime=1089, energyConsumption=21,158}      	Battery:  24.288
+ChargingEvent{id=174, charger=3, stop=70, startTime=1112, endTime=1116, chargingSpeed=2.0}          	Battery:  32.218
+ChargingEvent{id=175, charger=3, stop=70, startTime=1116, endTime=1128, chargingSpeed=2.0}          	Battery:  56.218
+ChargingEvent{id=176, charger=3, stop=70, startTime=1128, endTime=1130, chargingSpeed=2.0}          	Battery:  60.218
+ChargingEvent{id=177, charger=3, stop=70, startTime=1130, endTime=1136, chargingSpeed=2.0}          	Battery:  72.218
+Trip{id=188, startStop=70, endStop=70, startTime=1142, endTime=1176, energyConsumption=21,158}      	Battery:  51.060
+Trip{id=196, startStop=88, endStop=45, startTime=1192, endTime=1224, energyConsumption=22,304}      	Battery:  21.496
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  11.844
+Battery Status: 11.84400000000002
+}
+11. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=10, startStop=70, endStop=70, startTime=342, endTime=379, energyConsumption=21,158}         	Battery:  71.750
+Trip{id=23, startStop=84, endStop=70, startTime=390, endTime=415, energyConsumption=15,008}         	Battery:  52.290
+Trip{id=31, startStop=70, endStop=84, startTime=418, endTime=445, energyConsumption=14,742}         	Battery:  37.478
+Trip{id=42, startStop=70, endStop=70, startTime=462, endTime=499, energyConsumption=21,158}         	Battery:  12.030
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   5.014
+Battery Status: 5.013999999999989
+}
+12. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=3, startStop=70, endStop=70, startTime=312, endTime=349, energyConsumption=21,158}          	Battery:  71.750
+ChargingEvent{id=10, charger=3, stop=70, startTime=375, endTime=379, chargingSpeed=2.0}             	Battery:  79.680
+ChargingEvent{id=11, charger=3, stop=70, startTime=379, endTime=384, chargingSpeed=2.0}             	Battery:  89.680
+ChargingEvent{id=12, charger=3, stop=70, startTime=384, endTime=388, chargingSpeed=2.0}             	Battery:  97.680
+ChargingEvent{id=44, charger=3, stop=70, startTime=508, endTime=509, chargingSpeed=2.0}             	Battery:  99.680
+Trip{id=118, startStop=70, endStop=70, startTime=842, endTime=879, energyConsumption=21,158}        	Battery:  78.522
+Trip{id=130, startStop=70, endStop=70, startTime=882, endTime=919, energyConsumption=21,158}        	Battery:  57.294
+ChargingEvent{id=129, charger=2, stop=45, startTime=926, endTime=932, chargingSpeed=2.0}            	Battery:  58.534
+ChargingEvent{id=130, charger=2, stop=45, startTime=932, endTime=935, chargingSpeed=2.0}            	Battery:  64.534
+ChargingEvent{id=131, charger=2, stop=45, startTime=935, endTime=937, chargingSpeed=2.0}            	Battery:  68.534
+ChargingEvent{id=132, charger=2, stop=45, startTime=937, endTime=941, chargingSpeed=2.0}            	Battery:  76.534
+ChargingEvent{id=133, charger=2, stop=45, startTime=941, endTime=945, chargingSpeed=2.0}            	Battery:  84.534
+ChargingEvent{id=134, charger=2, stop=45, startTime=945, endTime=952, chargingSpeed=2.0}            	Battery:  98.534
+Trip{id=156, startStop=45, endStop=88, startTime=970, endTime=1005, energyConsumption=22,432}       	Battery:  76.102
+Trip{id=168, startStop=88, endStop=45, startTime=1027, endTime=1061, energyConsumption=22,304}      	Battery:  53.578
+ChargingEvent{id=164, charger=3, stop=70, startTime=1067, endTime=1068, chargingSpeed=2.0}          	Battery:  44.902
+ChargingEvent{id=165, charger=3, stop=70, startTime=1068, endTime=1073, chargingSpeed=2.0}          	Battery:  54.902
+ChargingEvent{id=166, charger=3, stop=70, startTime=1073, endTime=1074, chargingSpeed=2.0}          	Battery:  56.902
+ChargingEvent{id=167, charger=3, stop=70, startTime=1074, endTime=1075, chargingSpeed=2.0}          	Battery:  58.902
+Trip{id=189, startStop=70, endStop=84, startTime=1143, endTime=1167, energyConsumption=14,742}      	Battery:  44.160
+Trip{id=194, startStop=84, endStop=70, startTime=1175, endTime=1198, energyConsumption=15,008}      	Battery:  29.152
+Trip{id=199, startStop=70, endStop=70, startTime=1212, endTime=1246, energyConsumption=21,158}      	Battery:   7.924
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   0.908
+Battery Status: 0.9080000000000013
+}
+13. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=2, startStop=88, endStop=45, startTime=299, endTime=333, energyConsumption=22,304}          	Battery:  75.254
+ChargingEvent{id=5, charger=2, stop=45, startTime=355, endTime=356, chargingSpeed=2.0}              	Battery:  77.202
+ChargingEvent{id=6, charger=2, stop=45, startTime=356, endTime=357, chargingSpeed=2.0}              	Battery:  79.202
+ChargingEvent{id=8, charger=2, stop=45, startTime=370, endTime=372, chargingSpeed=2.0}              	Battery:  83.202
+Trip{id=27, startStop=45, endStop=88, startTime=405, endTime=440, energyConsumption=22,432}         	Battery:  60.770
+Trip{id=38, startStop=88, endStop=45, startTime=442, endTime=476, energyConsumption=22,304}         	Battery:  38.246
+Trip{id=48, startStop=84, endStop=70, startTime=490, endTime=515, energyConsumption=15,008}         	Battery:  12.010
+ChargingEvent{id=47, charger=3, stop=70, startTime=515, endTime=519, chargingSpeed=2.0}             	Battery:  19.940
+ChargingEvent{id=48, charger=3, stop=70, startTime=519, endTime=528, chargingSpeed=2.0}             	Battery:  37.940
+ChargingEvent{id=49, charger=3, stop=70, startTime=528, endTime=534, chargingSpeed=2.0}             	Battery:  49.940
+ChargingEvent{id=50, charger=3, stop=70, startTime=534, endTime=535, chargingSpeed=2.0}             	Battery:  51.940
+ChargingEvent{id=54, charger=3, stop=70, startTime=555, endTime=559, chargingSpeed=2.0}             	Battery:  59.940
+ChargingEvent{id=55, charger=3, stop=70, startTime=559, endTime=568, chargingSpeed=2.0}             	Battery:  77.940
+ChargingEvent{id=57, charger=3, stop=70, startTime=572, endTime=575, chargingSpeed=2.0}             	Battery:  83.940
+Trip{id=111, startStop=70, endStop=84, startTime=818, endTime=845, energyConsumption=14,742}        	Battery:  69.198
+Trip{id=120, startStop=84, endStop=70, startTime=850, endTime=875, energyConsumption=15,008}        	Battery:  54.190
+Trip{id=133, startStop=88, endStop=45, startTime=892, endTime=926, energyConsumption=22,304}        	Battery:  24.626
+ChargingEvent{id=135, charger=2, stop=45, startTime=952, endTime=955, chargingSpeed=2.0}            	Battery:  30.574
+ChargingEvent{id=136, charger=2, stop=45, startTime=955, endTime=957, chargingSpeed=2.0}            	Battery:  34.574
+ChargingEvent{id=137, charger=2, stop=45, startTime=957, endTime=961, chargingSpeed=2.0}            	Battery:  42.574
+ChargingEvent{id=138, charger=2, stop=45, startTime=961, endTime=965, chargingSpeed=2.0}            	Battery:  50.574
+ChargingEvent{id=139, charger=2, stop=45, startTime=965, endTime=966, chargingSpeed=2.0}            	Battery:  52.574
+ChargingEvent{id=140, charger=2, stop=45, startTime=966, endTime=972, chargingSpeed=2.0}            	Battery:  64.574
+ChargingEvent{id=141, charger=2, stop=45, startTime=972, endTime=975, chargingSpeed=2.0}            	Battery:  70.574
+ChargingEvent{id=142, charger=2, stop=45, startTime=975, endTime=981, chargingSpeed=2.0}            	Battery:  82.574
+Trip{id=160, startStop=45, endStop=88, startTime=990, endTime=1025, energyConsumption=22,432}       	Battery:  60.142
+ChargingEvent{id=157, charger=3, stop=70, startTime=1029, endTime=1035, chargingSpeed=2.0}          	Battery:  65.594
+ChargingEvent{id=162, charger=3, stop=70, startTime=1055, endTime=1059, chargingSpeed=2.0}          	Battery:  73.594
+Trip{id=179, startStop=70, endStop=70, startTime=1082, endTime=1116, energyConsumption=21,158}      	Battery:  52.436
+ChargingEvent{id=170, charger=2, stop=45, startTime=1122, endTime=1133, chargingSpeed=2.0}          	Battery:  63.676
+ChargingEvent{id=171, charger=2, stop=45, startTime=1133, endTime=1134, chargingSpeed=2.0}          	Battery:  65.676
+ChargingEvent{id=172, charger=2, stop=45, startTime=1134, endTime=1142, chargingSpeed=2.0}          	Battery:  81.676
+Trip{id=191, startStop=45, endStop=88, startTime=1155, endTime=1186, energyConsumption=22,432}      	Battery:  59.244
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  55.814
+Battery Status: 55.81400000000002
+}
+14. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=11, startStop=45, endStop=88, startTime=345, endTime=380, energyConsumption=22,432}         	Battery:  67.812
+ChargingEvent{id=16, charger=3, stop=70, startTime=395, endTime=399, chargingSpeed=2.0}             	Battery:  69.264
+ChargingEvent{id=19, charger=3, stop=70, startTime=409, endTime=414, chargingSpeed=2.0}             	Battery:  79.264
+ChargingEvent{id=21, charger=3, stop=70, startTime=415, endTime=419, chargingSpeed=2.0}             	Battery:  87.264
+ChargingEvent{id=25, charger=3, stop=70, startTime=429, endTime=435, chargingSpeed=2.0}             	Battery:  99.264
+Trip{id=44, startStop=70, endStop=70, startTime=472, endTime=509, energyConsumption=21,158}         	Battery:  78.106
+ChargingEvent{id=45, charger=3, stop=70, startTime=509, endTime=512, chargingSpeed=2.0}             	Battery:  84.036
+Trip{id=54, startStop=70, endStop=70, startTime=522, endTime=559, energyConsumption=21,158}         	Battery:  62.878
+Trip{id=62, startStop=70, endStop=70, startTime=562, endTime=599, energyConsumption=21,158}         	Battery:  41.650
+ChargingEvent{id=63, charger=3, stop=70, startTime=599, endTime=608, chargingSpeed=2.0}             	Battery:  59.580
+ChargingEvent{id=64, charger=3, stop=70, startTime=608, endTime=615, chargingSpeed=2.0}             	Battery:  73.580
+ChargingEvent{id=65, charger=3, stop=70, startTime=615, endTime=619, chargingSpeed=2.0}             	Battery:  81.580
+ChargingEvent{id=66, charger=3, stop=70, startTime=619, endTime=628, chargingSpeed=2.0}             	Battery:  99.580
+Trip{id=91, startStop=70, endStop=70, startTime=722, endTime=759, energyConsumption=21,158}         	Battery:  78.422
+ChargingEvent{id=92, charger=2, stop=45, startTime=765, endTime=772, chargingSpeed=2.0}             	Battery:  81.662
+ChargingEvent{id=93, charger=2, stop=45, startTime=772, endTime=777, chargingSpeed=2.0}             	Battery:  91.662
+ChargingEvent{id=94, charger=2, stop=45, startTime=777, endTime=781, chargingSpeed=2.0}             	Battery:  99.662
+Trip{id=105, startStop=45, endStop=88, startTime=795, endTime=830, energyConsumption=22,432}        	Battery:  77.230
+ChargingEvent{id=111, charger=3, stop=70, startTime=855, endTime=859, chargingSpeed=2.0}            	Battery:  78.682
+ChargingEvent{id=112, charger=3, stop=70, startTime=859, endTime=868, chargingSpeed=2.0}            	Battery:  96.682
+ChargingEvent{id=113, charger=3, stop=70, startTime=868, endTime=869, chargingSpeed=2.0}            	Battery:  98.682
+Trip{id=132, startStop=70, endStop=70, startTime=892, endTime=929, energyConsumption=21,158}        	Battery:  77.524
+Trip{id=145, startStop=70, endStop=70, startTime=932, endTime=969, energyConsumption=21,158}        	Battery:  56.296
+Trip{id=157, startStop=70, endStop=70, startTime=977, endTime=1014, energyConsumption=21,158}       	Battery:  35.068
+ChargingEvent{id=154, charger=3, stop=70, startTime=1014, endTime=1015, chargingSpeed=2.0}          	Battery:  36.998
+ChargingEvent{id=155, charger=3, stop=70, startTime=1015, endTime=1028, chargingSpeed=2.0}          	Battery:  62.998
+ChargingEvent{id=156, charger=3, stop=70, startTime=1028, endTime=1029, chargingSpeed=2.0}          	Battery:  64.998
+Trip{id=171, startStop=70, endStop=70, startTime=1037, endTime=1074, energyConsumption=21,158}      	Battery:  43.840
+Trip{id=178, startStop=84, endStop=70, startTime=1080, endTime=1103, energyConsumption=15,008}      	Battery:  24.380
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  17.364
+Battery Status: 17.36399999999999
+}
+15. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=22, startStop=88, endStop=45, startTime=382, endTime=416, energyConsumption=22,304}         	Battery:  75.254
+Trip{id=39, startStop=84, endStop=70, startTime=450, endTime=475, energyConsumption=15,008}         	Battery:  49.018
+ChargingEvent{id=37, charger=3, stop=70, startTime=475, endTime=479, chargingSpeed=2.0}             	Battery:  56.948
+Trip{id=47, startStop=70, endStop=70, startTime=482, endTime=519, energyConsumption=21,158}         	Battery:  35.790
+ChargingEvent{id=48, charger=3, stop=70, startTime=519, endTime=528, chargingSpeed=2.0}             	Battery:  53.720
+Trip{id=57, startStop=70, endStop=84, startTime=538, endTime=565, energyConsumption=14,742}         	Battery:  38.978
+ChargingEvent{id=56, charger=3, stop=70, startTime=568, endTime=572, chargingSpeed=2.0}             	Battery:  42.688
+ChargingEvent{id=58, charger=3, stop=70, startTime=575, endTime=579, chargingSpeed=2.0}             	Battery:  50.688
+Trip{id=65, startStop=70, endStop=70, startTime=582, endTime=619, energyConsumption=21,158}         	Battery:  29.530
+Trip{id=73, startStop=70, endStop=70, startTime=622, endTime=659, energyConsumption=21,158}         	Battery:   8.302
+ChargingEvent{id=77, charger=3, stop=70, startTime=679, endTime=688, chargingSpeed=2.0}             	Battery:  26.232
+ChargingEvent{id=82, charger=3, stop=70, startTime=708, endTime=714, chargingSpeed=2.0}             	Battery:  38.232
+ChargingEvent{id=84, charger=3, stop=70, startTime=715, endTime=719, chargingSpeed=2.0}             	Battery:  46.232
+ChargingEvent{id=85, charger=3, stop=70, startTime=719, endTime=728, chargingSpeed=2.0}             	Battery:  64.232
+ChargingEvent{id=93, charger=3, stop=70, startTime=768, endTime=774, chargingSpeed=2.0}             	Battery:  76.232
+Trip{id=117, startStop=70, endStop=84, startTime=838, endTime=865, energyConsumption=14,742}        	Battery:  61.490
+Trip{id=128, startStop=88, endStop=45, startTime=872, endTime=906, energyConsumption=22,304}        	Battery:  36.378
+Trip{id=146, startStop=88, endStop=45, startTime=932, endTime=966, energyConsumption=22,304}        	Battery:   2.946
+ChargingEvent{id=143, charger=2, stop=45, startTime=981, endTime=985, chargingSpeed=2.0}            	Battery:  10.894
+ChargingEvent{id=144, charger=2, stop=45, startTime=985, endTime=989, chargingSpeed=2.0}            	Battery:  18.894
+ChargingEvent{id=145, charger=2, stop=45, startTime=989, endTime=992, chargingSpeed=2.0}            	Battery:  24.894
+ChargingEvent{id=146, charger=2, stop=45, startTime=992, endTime=995, chargingSpeed=2.0}            	Battery:  30.894
+ChargingEvent{id=147, charger=2, stop=45, startTime=995, endTime=1001, chargingSpeed=2.0}           	Battery:  42.894
+ChargingEvent{id=154, charger=2, stop=45, startTime=1035, endTime=1041, chargingSpeed=2.0}          	Battery:  54.894
+ChargingEvent{id=158, charger=2, stop=45, startTime=1061, endTime=1065, chargingSpeed=2.0}          	Battery:  62.894
+Trip{id=181, startStop=45, endStop=88, startTime=1095, endTime=1126, energyConsumption=22,432}      	Battery:  40.462
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  37.032
+Battery Status: 37.032
+}
+16. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=4, startStop=45, endStop=88, startTime=315, endTime=350, energyConsumption=22,432}          	Battery:  67.812
+Trip{id=15, startStop=70, endStop=84, startTime=358, endTime=385, energyConsumption=14,742}         	Battery:  46.522
+Trip{id=43, startStop=84, endStop=70, startTime=470, endTime=495, energyConsumption=15,008}         	Battery:  31.514
+ChargingEvent{id=43, charger=3, stop=70, startTime=499, endTime=508, chargingSpeed=2.0}             	Battery:  49.444
+ChargingEvent{id=46, charger=3, stop=70, startTime=512, endTime=515, chargingSpeed=2.0}             	Battery:  55.444
+ChargingEvent{id=59, charger=3, stop=70, startTime=579, endTime=588, chargingSpeed=2.0}             	Battery:  73.444
+ChargingEvent{id=61, charger=3, stop=70, startTime=594, endTime=595, chargingSpeed=2.0}             	Battery:  75.444
+Trip{id=72, startStop=70, endStop=84, startTime=618, endTime=645, energyConsumption=14,742}         	Battery:  60.702
+Trip{id=77, startStop=84, endStop=70, startTime=650, endTime=675, energyConsumption=15,008}         	Battery:  45.694
+Trip{id=88, startStop=84, endStop=70, startTime=710, endTime=735, energyConsumption=15,008}         	Battery:  26.234
+ChargingEvent{id=87, charger=2, stop=45, startTime=741, endTime=745, chargingSpeed=2.0}             	Battery:  23.474
+ChargingEvent{id=88, charger=2, stop=45, startTime=745, endTime=746, chargingSpeed=2.0}             	Battery:  25.474
+ChargingEvent{id=95, charger=2, stop=45, startTime=781, endTime=785, chargingSpeed=2.0}             	Battery:  33.474
+ChargingEvent{id=96, charger=2, stop=45, startTime=785, endTime=792, chargingSpeed=2.0}             	Battery:  47.474
+ChargingEvent{id=98, charger=2, stop=45, startTime=801, endTime=805, chargingSpeed=2.0}             	Battery:  55.474
+ChargingEvent{id=99, charger=2, stop=45, startTime=805, endTime=806, chargingSpeed=2.0}             	Battery:  57.474
+ChargingEvent{id=112, charger=2, stop=45, startTime=865, endTime=866, chargingSpeed=2.0}            	Battery:  59.474
+Trip{id=126, startStop=45, endStop=88, startTime=870, endTime=905, energyConsumption=22,432}        	Battery:  37.042
+Trip{id=137, startStop=88, endStop=45, startTime=907, endTime=941, energyConsumption=22,304}        	Battery:  14.518
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   4.866
+Battery Status: 4.866000000000014
+}
+17. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=41, startStop=70, endStop=84, startTime=458, endTime=485, energyConsumption=14,742}         	Battery:  78.166
+Trip{id=55, startStop=84, endStop=70, startTime=530, endTime=555, energyConsumption=15,008}         	Battery:  63.158
+Trip{id=61, startStop=70, endStop=84, startTime=558, endTime=585, energyConsumption=14,742}         	Battery:  48.346
+Trip{id=66, startStop=84, endStop=70, startTime=590, endTime=615, energyConsumption=15,008}         	Battery:  33.338
+ChargingEvent{id=115, charger=3, stop=70, startTime=872, endTime=874, chargingSpeed=2.0}            	Battery:  37.268
+ChargingEvent{id=116, charger=3, stop=70, startTime=874, endTime=875, chargingSpeed=2.0}            	Battery:  39.268
+Trip{id=142, startStop=70, endStop=70, startTime=922, endTime=959, energyConsumption=21,158}        	Battery:  18.110
+ChargingEvent{id=141, charger=3, stop=70, startTime=959, endTime=968, chargingSpeed=2.0}            	Battery:  36.040
+ChargingEvent{id=147, charger=3, stop=70, startTime=988, endTime=989, chargingSpeed=2.0}            	Battery:  38.040
+Trip{id=161, startStop=70, endStop=70, startTime=992, endTime=1029, energyConsumption=21,158}       	Battery:  16.882
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   9.866
+Battery Status: 9.866000000000007
+}
+18. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=37, startStop=70, endStop=70, startTime=442, endTime=479, energyConsumption=21,158}         	Battery:  71.750
+ChargingEvent{id=60, charger=3, stop=70, startTime=588, endTime=594, chargingSpeed=2.0}             	Battery:  83.680
+ChargingEvent{id=62, charger=3, stop=70, startTime=595, endTime=599, chargingSpeed=2.0}             	Battery:  91.680
+Trip{id=69, startStop=70, endStop=70, startTime=602, endTime=639, energyConsumption=21,158}         	Battery:  70.522
+ChargingEvent{id=97, charger=3, stop=70, startTime=788, endTime=795, chargingSpeed=2.0}             	Battery:  84.452
+ChargingEvent{id=98, charger=3, stop=70, startTime=795, endTime=799, chargingSpeed=2.0}             	Battery:  92.452
+Trip{id=107, startStop=70, endStop=70, startTime=802, endTime=839, energyConsumption=21,158}        	Battery:  71.294
+Trip{id=129, startStop=70, endStop=84, startTime=878, endTime=905, energyConsumption=14,742}        	Battery:  56.482
+ChargingEvent{id=133, charger=3, stop=70, startTime=934, endTime=935, chargingSpeed=2.0}            	Battery:  54.192
+Trip{id=150, startStop=70, endStop=70, startTime=952, endTime=989, energyConsumption=21,158}        	Battery:  33.034
+ChargingEvent{id=148, charger=3, stop=70, startTime=989, endTime=995, chargingSpeed=2.0}            	Battery:  44.964
+ChargingEvent{id=151, charger=3, stop=70, startTime=1007, endTime=1008, chargingSpeed=2.0}          	Battery:  46.964
+ChargingEvent{id=152, charger=3, stop=70, startTime=1008, endTime=1009, chargingSpeed=2.0}          	Battery:  48.964
+ChargingEvent{id=153, charger=3, stop=70, startTime=1009, endTime=1014, chargingSpeed=2.0}          	Battery:  58.964
+Trip{id=176, startStop=70, endStop=70, startTime=1067, endTime=1104, energyConsumption=21,158}      	Battery:  37.806
+Trip{id=186, startStop=84, endStop=70, startTime=1125, endTime=1148, energyConsumption=15,008}      	Battery:  18.346
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  11.330
+Battery Status: 11.329999999999995
+}
+19. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=33, startStop=84, endStop=70, startTime=430, endTime=455, energyConsumption=15,008}         	Battery:  79.958
+Trip{id=84, startStop=70, endStop=70, startTime=682, endTime=719, energyConsumption=21,158}         	Battery:  58.730
+ChargingEvent{id=99, charger=3, stop=70, startTime=799, endTime=808, chargingSpeed=2.0}             	Battery:  76.660
+Trip{id=121, startStop=70, endStop=70, startTime=852, endTime=889, energyConsumption=21,158}        	Battery:  55.502
+Trip{id=136, startStop=70, endStop=70, startTime=902, endTime=939, energyConsumption=21,158}        	Battery:  34.274
+Trip{id=155, startStop=84, endStop=70, startTime=970, endTime=995, energyConsumption=15,008}        	Battery:  14.814
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   7.798
+Battery Status: 7.797999999999995
+}
+20. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=19, startStop=45, endStop=88, startTime=375, endTime=410, energyConsumption=22,432}         	Battery:  67.812
+Trip{id=67, startStop=88, endStop=45, startTime=592, endTime=626, energyConsumption=22,304}         	Battery:  45.288
+Trip{id=95, startStop=70, endStop=70, startTime=742, endTime=779, energyConsumption=21,158}         	Battery:  13.454
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   6.438
+Battery Status: 6.438000000000006
+}
+21. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=14, startStop=88, endStop=45, startTime=352, endTime=386, energyConsumption=22,304}         	Battery:  75.254
+ChargingEvent{id=12, charger=2, stop=45, startTime=386, endTime=387, chargingSpeed=2.0}             	Battery:  77.202
+ChargingEvent{id=13, charger=2, stop=45, startTime=387, endTime=392, chargingSpeed=2.0}             	Battery:  87.202
+ChargingEvent{id=14, charger=2, stop=45, startTime=392, endTime=395, chargingSpeed=2.0}             	Battery:  93.202
+ChargingEvent{id=18, charger=2, stop=45, startTime=412, endTime=415, chargingSpeed=2.0}             	Battery:  99.202
+Trip{id=60, startStop=45, endStop=88, startTime=555, endTime=590, energyConsumption=22,432}         	Battery:  76.770
+Trip{id=75, startStop=70, endStop=84, startTime=638, endTime=665, energyConsumption=14,742}         	Battery:  55.480
+Trip{id=81, startStop=84, endStop=70, startTime=670, endTime=695, energyConsumption=15,008}         	Battery:  40.472
+ChargingEvent{id=100, charger=3, stop=70, startTime=808, endTime=812, chargingSpeed=2.0}            	Battery:  48.402
+Trip{id=112, startStop=70, endStop=70, startTime=822, endTime=859, energyConsumption=21,158}        	Battery:  27.244
+Trip{id=131, startStop=84, endStop=70, startTime=890, endTime=915, energyConsumption=15,008}        	Battery:   7.784
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   0.768
+Battery Status: 0.7680000000000007
+}
+22. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+Trip{id=13, startStop=70, endStop=70, startTime=352, endTime=389, energyConsumption=21,158}         	Battery:  71.750
+Trip{id=24, startStop=70, endStop=70, startTime=392, endTime=429, energyConsumption=21,158}         	Battery:  50.522
+Trip{id=36, startStop=70, endStop=84, startTime=438, endTime=465, energyConsumption=14,742}         	Battery:  35.710
+Trip{id=70, startStop=84, endStop=70, startTime=610, endTime=635, energyConsumption=15,008}         	Battery:  20.702
+Trip{id=83, startStop=70, endStop=84, startTime=678, endTime=705, energyConsumption=14,742}         	Battery:   5.890
+ChargingEvent{id=105, charger=3, stop=70, startTime=828, endTime=834, chargingSpeed=2.0}            	Battery:  13.600
+ChargingEvent{id=129, charger=3, stop=70, startTime=919, endTime=928, chargingSpeed=2.0}            	Battery:  31.600
+Trip{id=148, startStop=70, endStop=70, startTime=942, endTime=979, energyConsumption=21,158}        	Battery:  10.442
+ChargingEvent{id=146, charger=3, stop=70, startTime=979, endTime=988, chargingSpeed=2.0}            	Battery:  28.372
+Trip{id=162, startStop=70, endStop=84, startTime=998, endTime=1025, energyConsumption=14,742}       	Battery:  13.630
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:   8.650
+Battery Status: 8.649999999999984
+}
+23. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+ChargingEvent{id=3, charger=3, stop=70, startTime=345, endTime=348, chargingSpeed=2.0}              	Battery:  98.908
+Trip{id=18, startStop=70, endStop=70, startTime=372, endTime=409, energyConsumption=21,158}         	Battery:  77.750
+Trip{id=29, startStop=70, endStop=70, startTime=412, endTime=449, energyConsumption=21,158}         	Battery:  56.522
+Trip{id=119, startStop=88, endStop=45, startTime=847, endTime=881, energyConsumption=22,304}        	Battery:  26.958
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  17.306
+Battery Status: 17.306000000000004
+}
+24. Turnus{
+Trip{id=0, startStop=26, endStop=26, startTime=240, endTime=240, energyConsumption=0,000}           	Battery: 100.000
+ChargingEvent{id=4, charger=3, stop=70, startTime=348, endTime=349, chargingSpeed=2.0}              	Battery:  94.908
+ChargingEvent{id=7, charger=3, stop=70, startTime=362, endTime=364, chargingSpeed=2.0}              	Battery:  98.908
+Trip{id=25, startStop=70, endStop=84, startTime=398, endTime=425, energyConsumption=14,742}         	Battery:  84.166
+ChargingEvent{id=24, charger=3, stop=70, startTime=428, endTime=429, chargingSpeed=2.0}             	Battery:  81.876
+ChargingEvent{id=25, charger=3, stop=70, startTime=429, endTime=435, chargingSpeed=2.0}             	Battery:  93.876
+ChargingEvent{id=29, charger=3, stop=70, startTime=448, endTime=449, chargingSpeed=2.0}             	Battery:  95.876
+ChargingEvent{id=40, charger=3, stop=70, startTime=488, endTime=489, chargingSpeed=2.0}             	Battery:  97.876
+Trip{id=50, startStop=70, endStop=84, startTime=498, endTime=525, energyConsumption=14,742}         	Battery:  83.134
+ChargingEvent{id=49, charger=3, stop=70, startTime=528, endTime=534, chargingSpeed=2.0}             	Battery:  90.844
+ChargingEvent{id=50, charger=3, stop=70, startTime=534, endTime=535, chargingSpeed=2.0}             	Battery:  92.844
+Trip{id=58, startStop=70, endStop=70, startTime=542, endTime=579, energyConsumption=21,158}         	Battery:  71.686
+ChargingEvent{id=59, charger=3, stop=70, startTime=579, endTime=588, chargingSpeed=2.0}             	Battery:  89.616
+ChargingEvent{id=61, charger=3, stop=70, startTime=594, endTime=595, chargingSpeed=2.0}             	Battery:  91.616
+ChargingEvent{id=62, charger=3, stop=70, startTime=595, endTime=599, chargingSpeed=2.0}             	Battery:  99.616
+Trip{id=76, startStop=70, endStop=70, startTime=642, endTime=679, energyConsumption=21,158}         	Battery:  78.458
+Trip{id=104, startStop=84, endStop=70, startTime=790, endTime=815, energyConsumption=15,008}        	Battery:  58.998
+ChargingEvent{id=103, charger=2, stop=45, startTime=821, endTime=825, chargingSpeed=2.0}            	Battery:  56.238
+ChargingEvent{id=104, charger=2, stop=45, startTime=825, endTime=832, chargingSpeed=2.0}            	Battery:  70.238
+Trip{id=116, startStop=45, endStop=88, startTime=835, endTime=870, energyConsumption=22,432}        	Battery:  47.806
+ChargingEvent{id=116, charger=3, stop=70, startTime=874, endTime=875, chargingSpeed=2.0}            	Battery:  43.258
+ChargingEvent{id=117, charger=3, stop=70, startTime=875, endTime=879, chargingSpeed=2.0}            	Battery:  51.258
+ChargingEvent{id=118, charger=3, stop=70, startTime=879, endTime=887, chargingSpeed=2.0}            	Battery:  67.258
+ChargingEvent{id=119, charger=3, stop=70, startTime=887, endTime=888, chargingSpeed=2.0}            	Battery:  69.258
+ChargingEvent{id=120, charger=3, stop=70, startTime=888, endTime=889, chargingSpeed=2.0}            	Battery:  71.258
+ChargingEvent{id=121, charger=3, stop=70, startTime=889, endTime=894, chargingSpeed=2.0}            	Battery:  81.258
+ChargingEvent{id=122, charger=3, stop=70, startTime=894, endTime=895, chargingSpeed=2.0}            	Battery:  83.258
+ChargingEvent{id=123, charger=3, stop=70, startTime=895, endTime=899, chargingSpeed=2.0}            	Battery:  91.258
+ChargingEvent{id=125, charger=3, stop=70, startTime=908, endTime=909, chargingSpeed=2.0}            	Battery:  93.258
+ChargingEvent{id=126, charger=3, stop=70, startTime=909, endTime=912, chargingSpeed=2.0}            	Battery:  99.258
+Trip{id=139, startStop=70, endStop=70, startTime=912, endTime=949, energyConsumption=21,158}        	Battery:  78.100
+Trip{id=212, startStop=26, endStop=26, startTime=1680, endTime=1680, energyConsumption=0,000}       	Battery:  71.084
+Battery Status: 71.084
+}
+}

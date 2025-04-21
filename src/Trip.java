@@ -65,7 +65,7 @@ public class Trip implements TurnusElement {
                 ", endStop=" + endStop +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", energyConsumption=" + energyConsumption +
+                ", energyConsumption=" + String.format("%.3f", energyConsumption) +
                 '}';
     }
 }
