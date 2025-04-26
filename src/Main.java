@@ -11,19 +11,23 @@ public class Main {
         DataLoader.loadMatrixKm("data/matrixKm.txt", StaticData.stopIdToIndex.size());
         DataLoader.loadMatrixTime("data/matrixTime.txt", StaticData.stopIdToIndex.size());
 
+        DataLoader.loadChargers("data/chargers_" + version + ".csv");
         DataLoader.loadChargingEvents("data/ChEvents_" + version + ".csv");
         DataLoader.loadTrips("data/spoje_id_" + version + ".csv");
 
         int[] turnuses = new int[replications];
         Solution best = null;
+        double bestDuration = Double.MAX_VALUE;
         for (int i = 0; i < replications; i++) {
-            MemeticAlgorithm ma = new MemeticAlgorithm(populationSize, generations, mutationRate, mutationNum, localSearchRate, localSearchNum);
+            MemeticAlgorithm ma = new MemeticAlgorithm(populationSize, generations, mutationRate, mutationNum, localSearchRate, localSearchNum, 1800);
             ma.run();
             Solution curr = ma.getBestSolution();
+            double durationInSeconds = ma.getDurationInSeconds();
             turnuses[i] = curr.getNumberOfTurnuses();
 
             if (best == null || (curr.getNumberOfTurnuses() < best.getNumberOfTurnuses() && curr.getFitness() < best.getFitness())) {
                 best = curr;
+                bestDuration = durationInSeconds;
             }
         }
 
@@ -47,6 +51,7 @@ public class Main {
         System.out.println("\nBest turnuses: " + best.getTurnuses().size());
         System.out.println("Best count: " + bestCount + "/" + replications);
         System.out.println("Trips: " + best.getUniqueTripsCount());
+        System.out.println("Duration: " + bestDuration + " seconds");
 
         System.out.println("\nDataset: " + version);
 
@@ -64,6 +69,7 @@ public class Main {
             writer.write("\nBest turnuses: " + best.getTurnuses().size() + "\n");
             writer.write("Best count: " + bestCount + "/" + replications + "\n");
             writer.write("Trips: " + best.getUniqueTripsCount() + "\n");
+            writer.write("Duration: " + bestDuration + "\n");
 
             writer.write("\nBest solution: " + best + "\n");
         }

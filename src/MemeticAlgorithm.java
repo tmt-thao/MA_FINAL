@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class MemeticAlgorithm {
     private int populationSize;
-    private int generations;
+    private int maxNoChangeCount;
 
     private double mutationRate;
     private int mutationNum;
@@ -17,10 +17,13 @@ public class MemeticAlgorithm {
     private Solution bestSolution;
     private Random random;
 
+    private double durationInSeconds;
+    private double timeLimitInSeconds;
+
     public MemeticAlgorithm(int populationSize, int generations, double mutationRate, int mutationNum,
-            double localSearchRate, int localSearchNum) {
+            double localSearchRate, int localSearchNum, double timeLimitInSeconds) {
         this.populationSize = populationSize;
-        this.generations = generations;
+        this.maxNoChangeCount = generations;
 
         this.mutationRate = mutationRate;
         this.mutationNum = mutationNum;
@@ -30,16 +33,27 @@ public class MemeticAlgorithm {
         this.population = new ArrayList<>();
         this.bestSolution = null;
         this.random = new Random();
+
+        this.durationInSeconds = 0.0;
+        this.timeLimitInSeconds = timeLimitInSeconds;
     }
 
     public Solution getBestSolution() {
         return bestSolution;
     }
 
-    public void run() {
-        initializePopulation();
+    public double getDurationInSeconds() {
+        return durationInSeconds;
+    }
 
-        for (int generation = 0; generation < generations; generation++) {
+    public void run() {
+        long startTime = System.nanoTime();
+        int noChangeCount = 0;
+
+        initializePopulation();
+        int prevBestTurnuses = bestSolution.getNumberOfTurnuses();
+
+        while (noChangeCount < maxNoChangeCount &&  durationInSeconds < timeLimitInSeconds) {
             List<Solution> newPopulation = new ArrayList<>();
 
             List<Solution> sortedPopulation = new ArrayList<>(population);
@@ -57,11 +71,19 @@ public class MemeticAlgorithm {
 
                 child = mutate(child);
                 child = localSearch(child);
-
                 newPopulation.add(child);
-            }
 
+                if (bestSolution.getNumberOfTurnuses() == prevBestTurnuses) {
+                    noChangeCount++;
+                } else {
+                    noChangeCount = 0;
+                    prevBestTurnuses = bestSolution.getNumberOfTurnuses();
+                }
+            }
             population = newPopulation;
+
+            long endTime = System.nanoTime();
+            this.durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
         }
     }
 
@@ -240,7 +262,7 @@ public class MemeticAlgorithm {
 
     private void fillNotAddedTrips(Solution mutated, List<Trip> toBeAddedTrips, List<Trip> notAdded, Turnus newTurnus) {
         for (Trip trip : toBeAddedTrips) {
-            if (!newTurnus.addTrip(trip, mutated.getFreeChargers())) {
+            if (!newTurnus.addTrip(trip, mutated.getStopToChargers(), mutated.getChargerToEvents())) {
                 notAdded.add(trip);
             }
         }

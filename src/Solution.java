@@ -1,19 +1,19 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Solution {
     private List<Turnus> turnuses;
-    private List<ChargingEvent> freeChargers;
+    private HashMap<Integer, HashSet<Integer>> stopToChargers;
+    private HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents;
 
     public Solution() {
         this.turnuses = new ArrayList<>();
-
-        this.freeChargers = new ArrayList<>();
-        for (ChargingEvent chargingEvent : StaticData.chargingEvents) {
-            this.freeChargers.add(new ChargingEvent(chargingEvent));
-        }
+        this.stopToChargers = StaticData.getStopToChargersCopy();
+        this.chargerToEvents = StaticData.getChargerToEventsCopy();
     }
 
     public Solution(Solution other) {
@@ -22,10 +22,27 @@ public class Solution {
             this.turnuses.add(new Turnus(turnus));
         }
 
-        this.freeChargers = new ArrayList<>();
-        for (ChargingEvent chargingEvent : other.freeChargers) {
-            this.freeChargers.add(new ChargingEvent(chargingEvent));
+        this.stopToChargers = new HashMap<>();
+        for (Map.Entry<Integer, HashSet<Integer>> entry : other.getStopToChargers().entrySet()) {
+            this.stopToChargers.put(entry.getKey(), new HashSet<>(entry.getValue()));
         }
+
+        this.chargerToEvents = new HashMap<>();
+        for (Map.Entry<Integer, ArrayList<ChargingEvent>> entry : other.getChargerToEvents().entrySet()) {
+            ArrayList<ChargingEvent> copiedList = new ArrayList<>();
+            for (ChargingEvent event : entry.getValue()) {
+                copiedList.add(new ChargingEvent(event));
+            }
+            this.chargerToEvents.put(entry.getKey(), copiedList);
+        }
+    }
+
+    public HashMap<Integer, HashSet<Integer>> getStopToChargers() {
+        return stopToChargers;
+    }
+
+    public HashMap<Integer, ArrayList<ChargingEvent>> getChargerToEvents() {
+        return chargerToEvents;
     }
     
     public static Solution generate(List<Trip> trips) {
@@ -63,13 +80,36 @@ public class Solution {
         this.turnuses.add(turnus);
 
         for (ChargingEvent chargingEvent : turnus.getChargingEvents()) {
-            freeChargers.remove(chargingEvent);
+            int charger = chargingEvent.getCharger();
+            int stop = chargingEvent.getStop();
+
+            chargerToEvents.get(charger).remove(chargingEvent);
+            if (chargerToEvents.get(charger).isEmpty()) {
+                chargerToEvents.remove(charger);
+                stopToChargers.get(stop).remove(charger);
+
+                if (stopToChargers.get(stop).isEmpty()) {
+                    stopToChargers.remove(stop);
+                }
+            }
+
+
+            // freeChargers.remove(chargingEvent);
         }
     }
 
     public void removeTurnus(Turnus turnus) {
         for (ChargingEvent chargingEvent : turnus.getChargingEvents()) {
-            freeChargers.add(chargingEvent);
+            int charger = chargingEvent.getCharger();
+            int stop = chargingEvent.getStop();
+
+            chargerToEvents.putIfAbsent(charger, new ArrayList<>());
+            chargerToEvents.get(charger).add(chargingEvent);
+
+            stopToChargers.putIfAbsent(stop, new HashSet<>());
+            stopToChargers.get(stop).add(charger);
+
+            // freeChargers.add(chargingEvent);
         }
         this.turnuses.remove(turnus);
     }
@@ -78,7 +118,7 @@ public class Solution {
         boolean added = false;
 
         for (Turnus turnus : turnuses) {
-            if (turnus.addTrip(trip, freeChargers)) {
+            if (turnus.addTrip(trip, stopToChargers, chargerToEvents)) {
                 added = true;
                 break;
             }
@@ -86,7 +126,7 @@ public class Solution {
 
         if (!added) {
             Turnus newTurnus = new Turnus();
-            newTurnus.addTrip(trip, freeChargers);
+            newTurnus.addTrip(trip, stopToChargers, chargerToEvents);
             addTurnus(newTurnus);
         }
     }
@@ -99,10 +139,6 @@ public class Solution {
 
     public List<Turnus> getTurnuses() {
         return turnuses;
-    }
-
-    public List<ChargingEvent> getFreeChargers() {
-        return freeChargers;
     }
 
     public int getNumberOfTurnuses() {

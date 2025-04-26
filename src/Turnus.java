@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,11 +75,25 @@ public class Turnus {
         return true;
     }
 
-    public boolean addTrip(Trip newTrip, List<ChargingEvent> freeChargers) {
-        return StaticData.CHARGING_STRATEGY == ChargingStrategy.AT_END_STOP ? chargingEndStop(newTrip, freeChargers) : chargingStartStop(newTrip, freeChargers);
+    public boolean addTrip(Trip newTrip, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
+        if (StaticData.CHARGING_STRATEGY == ChargingStrategy.AT_START_STOP) {
+            return chargingStartStop(newTrip, stopToChargers, chargerToEvents);
+        }
+
+        if (StaticData.CHARGING_STRATEGY == ChargingStrategy.AT_END_STOP) {
+            return chargingEndStop(newTrip, stopToChargers, chargerToEvents);
+        }
+
+        return chargingClosestStop(newTrip, stopToChargers, chargerToEvents);
     }
 
-    private boolean chargingEndStop(Trip newTrip, List<ChargingEvent> freeChargers) {
+    private boolean chargingClosestStop(Trip newTrip, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
+        
+
+        return false;
+    }
+
+    private boolean chargingEndStop(Trip newTrip, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
         double battery = StaticData.MAX_BATTERY;
 
         for (int i = 1; i < elements.size(); i++) {
@@ -110,7 +126,7 @@ public class Turnus {
                 finalBattery += -prevToCurrBattery + prevToNewBattery + newToCurrBattery - newTrip.getEnergy();
                 battery += prevToNewBattery - newTrip.getEnergy();
 
-                List<ChargingEvent> candidateChargers = getCandidateChargers(newTrip.getEndTime(), freeChargers, 
+                List<ChargingEvent> candidateChargers = getCandidateChargers(newTrip.getEndTime(), stopToChargers, chargerToEvents, 
                 currElem.getStartTime() - StaticData.getTravelTime(newTrip.getEndStop(), currTrip.getStartStop()), battery, newTrip.getEndStop());
                 double chargersBattery = 0.0;
                 for (ChargingEvent chargingEvent : candidateChargers) {
@@ -126,7 +142,20 @@ public class Turnus {
 
                 finalBattery += chargersBattery;
                 for (ChargingEvent candidate : candidateChargers) {
-                    freeChargers.remove(candidate);
+                    //freeChargers.remove(candidate);
+                    int charger = candidate.getCharger();
+                    int stop = candidate.getStop();
+
+                    chargerToEvents.get(charger).remove(candidate);
+                    if (chargerToEvents.get(charger).isEmpty()) {
+                        chargerToEvents.remove(charger);
+                        stopToChargers.get(stop).remove(charger);
+
+                        if (stopToChargers.get(stop).isEmpty()) {
+                            stopToChargers.remove(stop);
+                        }
+                    }
+                    
                     elements.add(candidate);
                 }
                 elements.sort(Comparator.comparingInt(TurnusElement::getStartTime));
@@ -140,7 +169,7 @@ public class Turnus {
         return false;
     }
 
-    private boolean chargingStartStop(Trip newTrip, List<ChargingEvent> freeChargers) {
+    private boolean chargingStartStop(Trip newTrip, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
         double battery = StaticData.MAX_BATTERY;
 
         for (int i = 1; i < elements.size(); i++) {
@@ -173,7 +202,7 @@ public class Turnus {
                 finalBattery += -prevToCurrBattery + prevToNewBattery + newToCurrBattery  - newTrip.getEnergy();
                 battery += prevToNewBattery;
 
-                List<ChargingEvent> candidateChargers = getCandidateChargers(prevToNewTime, freeChargers, newTrip.getStartTime(), battery, newTrip.getStartStop());
+                List<ChargingEvent> candidateChargers = getCandidateChargers(prevToNewTime, stopToChargers, chargerToEvents, newTrip.getStartTime(), battery, newTrip.getStartStop());
                 double chargersBattery = 0.0;
                 for (ChargingEvent chargingEvent : candidateChargers) {
                     chargersBattery += chargingEvent.getEnergy();
@@ -188,7 +217,20 @@ public class Turnus {
 
                 finalBattery += chargersBattery;
                 for (ChargingEvent candidate : candidateChargers) {
-                    freeChargers.remove(candidate);
+                    //freeChargers.remove(candidate);
+                    int charger = candidate.getCharger();
+                    int stop = candidate.getStop();
+
+                    chargerToEvents.get(charger).remove(candidate);
+                    if (chargerToEvents.get(charger).isEmpty()) {
+                        chargerToEvents.remove(charger);
+                        stopToChargers.get(stop).remove(charger);
+
+                        if (stopToChargers.get(stop).isEmpty()) {
+                            stopToChargers.remove(stop);
+                        }
+                    }
+
                     elements.add(candidate);
                 }
                 elements.sort(Comparator.comparingInt(TurnusElement::getStartTime));
@@ -202,26 +244,76 @@ public class Turnus {
         return false;
     }
 
-    private List<ChargingEvent> getCandidateChargers(int arrivalTime, List<ChargingEvent> freeChargers, int nextElemStartTime, double currBattery, int stop) {
-        List<ChargingEvent> candidates = new ArrayList<>();
+    private List<ChargingEvent> getCandidateChargers(int arrivalTime, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents, int nextElemStartTime, double currBattery, int stop) {
+        HashSet<Integer> chargers = stopToChargers.get(stop);
+        if (chargers == null) return new ArrayList<>();
 
-        for (ChargingEvent chargingEvent : freeChargers) {
-            if (!candidates.isEmpty()
-                    && chargingEvent.getCharger() != candidates.get(candidates.size() - 1).getCharger()) {
-                break;
+        double bestCharged = 0.0;
+        List<ChargingEvent> bestCandidates = new ArrayList<>();
+
+        for (int charger : chargers) {
+            double currCharged = 0.0;
+            List<ChargingEvent> currCandidates = new ArrayList<>();
+
+            for (ChargingEvent chargingEvent : chargerToEvents.get(charger)) {
+                if (chargingEvent.getStartTime() < arrivalTime) continue;
+                if (chargingEvent.getEndTime() > nextElemStartTime) break;
+                if (chargingEvent.getEnergy() + currCharged + finalBattery > StaticData.MAX_BATTERY) break;
+                if (chargingEvent.getEnergy() + currCharged + currBattery > StaticData.MAX_BATTERY) break;
+
+                currCharged += chargingEvent.getEnergy();
+                currCandidates.add(chargingEvent);
             }
 
-            if (chargingEvent.getStop() == stop
-                    && chargingEvent.getStartTime() >= arrivalTime
-                    && chargingEvent.getEndTime() <= nextElemStartTime
-                    && chargingEvent.getEnergy() + finalBattery <= StaticData.MAX_BATTERY
-                    && chargingEvent.getEnergy() + currBattery <= StaticData.MAX_BATTERY) {
-                candidates.add(chargingEvent);
-                currBattery += chargingEvent.getEnergy();
+            if (currCharged > bestCharged) {
+                bestCharged = currCharged;
+                bestCandidates = new ArrayList<>(currCandidates);
+                currCandidates.clear();
             }
         }
 
-        return candidates;
+        return bestCandidates;
+    }
+
+    private List<ChargingEvent> getBestChargers(Trip newTrip, Trip currTrip, double currBattery,
+            HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
+        double bestCharged = 0.0;
+        List<ChargingEvent> bestCandidates = new ArrayList<>();
+
+        for (int stop : stopToChargers.keySet()) {
+            double energyTo = StaticData.getDeadheadEnergy(newTrip.getEndStop(), stop);
+            double energyFrom = StaticData.getDeadheadEnergy(stop, currTrip.getStartStop());
+            if (currBattery - energyTo < StaticData.MIN_BATTERY) continue;
+
+            int minStartTime = newTrip.getEndTime() + StaticData.getTravelTime(newTrip.getEndStop(), stop);
+            int maxEndTime = currTrip.getStartTime() - StaticData.getTravelTime(stop, currTrip.getStartStop());
+            if (minStartTime > maxEndTime) continue;
+
+            HashSet<Integer> chargers = stopToChargers.get(stop);
+            if (chargers == null) continue;
+
+            for (int charger : chargers) {
+                double currCharged = 0.0;
+                List<ChargingEvent> currCandidates = new ArrayList<>();
+
+                for (ChargingEvent chargingEvent : chargerToEvents.get(charger)) {
+                    if (chargingEvent.getStartTime() < minStartTime) continue;
+                    if (chargingEvent.getEndTime() > maxEndTime) break;
+                    if (chargingEvent.getEnergy() + currCharged - energyTo + finalBattery > StaticData.MAX_BATTERY) break;
+                    if (chargingEvent.getEnergy() + currCharged - energyTo + currBattery > StaticData.MAX_BATTERY) break;
+
+                    currCharged += chargingEvent.getEnergy();
+                    currCandidates.add(chargingEvent);
+                }
+
+                if (currCharged > bestCharged && currCharged > energyTo + energyFrom) {
+                    bestCharged = currCharged - energyTo - energyFrom;
+                    bestCandidates = currCandidates;
+                }
+            }
+        }
+
+        return bestCandidates;
     }
 
     public double getDeadheadDistance() {

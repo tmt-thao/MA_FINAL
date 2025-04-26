@@ -1,11 +1,18 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+
+import javax.xml.crypto.Data;
 
 public class StaticData {
     public static HashMap<Integer, Integer> stopIdToIndex;
-    public static List<Trip> trips;
-    public static List<ChargingEvent> chargingEvents;
 
+    public static HashMap<Integer, HashSet<Integer>> stopToChargers;
+    public static HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents;
+
+    public static List<Trip> trips;
     public static Trip depoStart;
     public static Trip depoEnd;
 
@@ -30,12 +37,28 @@ public class StaticData {
         return matrixKm[from][to];
     }
 
-    // public static Trip getTripById(int id) {
-    //     for (Trip trip : trips) {
-    //         if (trip.getId() == id) {
-    //             return trip;
-    //         }
-    //     }
-    //     return null;
-    // }
+    public static HashMap<Integer, HashSet<Integer>> getStopToChargersCopy() {
+        HashMap<Integer, HashSet<Integer>> copy = new HashMap<>();
+
+        for (Map.Entry<Integer, HashSet<Integer>> entry : StaticData.stopToChargers.entrySet()) {
+            copy.put(entry.getKey(), new HashSet<>(entry.getValue()));
+        }
+
+        return copy;
+    }
+
+    public static HashMap<Integer, ArrayList<ChargingEvent>> getChargerToEventsCopy() {
+        HashMap<Integer, ArrayList<ChargingEvent>> copy = new HashMap<>();
+
+        for (Map.Entry<Integer, ArrayList<ChargingEvent>> entry : StaticData.chargerToEvents.entrySet()) {
+            ArrayList<ChargingEvent> copiedList = new ArrayList<>();
+            
+            for (ChargingEvent event : entry.getValue()) {
+                copiedList.add(new ChargingEvent(event));
+            }
+            copy.put(entry.getKey(), copiedList);
+        }
+        
+        return copy;
+    }
 }

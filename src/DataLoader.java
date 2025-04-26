@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class DataLoader {
 
@@ -88,8 +89,29 @@ public class DataLoader {
         br.close();
     }
 
+    public static void loadChargers(String filePath) throws IOException {
+        StaticData.stopToChargers = new HashMap<>();
+
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String line;
+        boolean first = true;
+
+        while ((line = br.readLine()) != null) {
+            if (first) { first = false; continue; }
+
+            String[] parts = line.split(";");
+            int charger = Integer.parseInt(parts[0]);
+            int stop = StaticData.stopIdToIndex.get(Integer.parseInt(parts[1]));
+
+            StaticData.stopToChargers.putIfAbsent(stop, new HashSet<>());
+            StaticData.stopToChargers.get(stop).add(charger);                    
+        }
+
+        br.close();
+    }
+
     public static void loadChargingEvents(String filePath) throws IOException {
-        StaticData.chargingEvents = new ArrayList<>();
+        StaticData.chargerToEvents = new HashMap<>();
 
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;
@@ -106,7 +128,9 @@ public class DataLoader {
             int stop = StaticData.stopIdToIndex.get(Integer.parseInt(parts[5]));
             double chargingSpeed = Double.parseDouble(parts[6]);
 
-            StaticData.chargingEvents.add(new ChargingEvent(id, charger, stop, startTime, endTime, chargingSpeed));
+            ChargingEvent chEvent = new ChargingEvent(id, charger, stop, startTime, endTime, chargingSpeed);
+            StaticData.chargerToEvents.putIfAbsent(charger, new ArrayList<>());
+            StaticData.chargerToEvents.get(charger).add(chEvent);
         }
 
         br.close();
