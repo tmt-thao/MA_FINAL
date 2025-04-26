@@ -28,8 +28,7 @@ public class AppGUI {
         // === Dataset, Output, Season, Charging strategy ===
         JComboBox<String> versionBox = new JComboBox<>(VERSIONS);
         JTextField outputFileField = new JTextField("output.txt");
-        String[] seasons = { "Spring", "Summer", "Winter" };
-        JComboBox<String> seasonBox = new JComboBox<>(seasons);
+        JComboBox<Season> seasonBox = new JComboBox<>(Season.values());
         JComboBox<ChargingStrategy> strategyBox = new JComboBox<>(ChargingStrategy.values());
 
         versionBox.setPreferredSize(inputSize);
@@ -123,21 +122,8 @@ public class AppGUI {
                     SwingUtilities.invokeLater(() -> loadingDialog.setVisible(true));
 
                     // === Battery settings based on season ===
-                    String season = (String) seasonBox.getSelectedItem();
-                    switch (season) {
-                        case "Spring":
-                            StaticData.CONSUMPTION_PER_KM = 1.5;
-                            StaticData.MAX_BATTERY = 125.0;
-                            break;
-                        case "Summer":
-                            StaticData.CONSUMPTION_PER_KM = 2.0;
-                            StaticData.MAX_BATTERY = 125.0;
-                            break;
-                        case "Winter":
-                            StaticData.CONSUMPTION_PER_KM = 2.0;
-                            StaticData.MAX_BATTERY = 100.0;
-                            break;
-                    }
+                    Season selectedSeason = (Season) seasonBox.getSelectedItem();
+                    StaticData.SEASON = selectedSeason;
 
                     // === Charging strategy from dropdown ===
                     ChargingStrategy selectedStrategy = (ChargingStrategy) strategyBox.getSelectedItem();

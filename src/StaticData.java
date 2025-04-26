@@ -13,9 +13,10 @@ public class StaticData {
     public static int[][] matrixTime;
 
     public static ChargingStrategy CHARGING_STRATEGY = ChargingStrategy.AT_START_STOP;
-    public static double CONSUMPTION_PER_KM = 1.5;    // 1.5, 2, 2
+    public static Season SEASON = Season.SPRING;
+    public static double CONSUMPTION_PER_KM = SEASON == Season.SPRING ? 1.5 : 2.0;
     public static double MIN_BATTERY = 0;
-    public static double MAX_BATTERY = 125.0;             // 125, 125, 100
+    public static double MAX_BATTERY = SEASON == Season.WINTER ? 100.0 : 125.0;
 
     public static double getDeadheadEnergy(int from, int to) {
         return getTravelDistance(from, to) * CONSUMPTION_PER_KM;

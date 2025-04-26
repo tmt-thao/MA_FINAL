@@ -34,15 +34,6 @@ public class Main {
             }
         }
 
-        String season;
-        if (StaticData.CONSUMPTION_PER_KM == 1.5) {
-            season = "Spring";
-        } else if (StaticData.CONSUMPTION_PER_KM == 2.0 && StaticData.MAX_BATTERY == 125.0) {
-            season = "Summer";
-        } else {
-            season = "Winter";
-        }
-
         System.out.println("\nBest solution: " + best);
 
         System.out.println("\nPopulation size: " + populationSize);
@@ -50,7 +41,7 @@ public class Main {
         System.out.println("Mutation rate: " + mutationRate);
         System.out.println("Local search rate: " + localSearchRate);
 
-        System.out.println("\nSeason: " + season);
+        System.out.println("\nSeason: " + StaticData.SEASON);
         System.out.println("Charging strategy: " + StaticData.CHARGING_STRATEGY);
         
         System.out.println("\nBest turnuses: " + best.getTurnuses().size());
@@ -62,7 +53,7 @@ public class Main {
         try (FileWriter writer = new FileWriter(outputFilename)) {
             writer.write("Dataset: " + version + "\n");
             
-            writer.write("\nSeason: " + season + "\n");
+            writer.write("\nSeason: " + StaticData.SEASON + "\n");
             writer.write("Charging strategy: " + StaticData.CHARGING_STRATEGY + "\n");
 
             writer.write("\nPopulation size: " + populationSize + "\n");
