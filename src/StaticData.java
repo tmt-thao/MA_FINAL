@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.crypto.Data;
-
 public class StaticData {
     public static HashMap<Integer, Integer> stopIdToIndex;
 
@@ -19,21 +17,30 @@ public class StaticData {
     public static double[][] matrixKm;
     public static int[][] matrixTime;
 
-    public static ChargingStrategy CHARGING_STRATEGY = ChargingStrategy.AT_START_STOP;
+    public static ChargingStrategy chargingStrategy = ChargingStrategy.WHEN_POSSIBLE;
     public static Season SEASON = Season.SPRING;
     public static double CONSUMPTION_PER_KM = SEASON == Season.SPRING ? 1.5 : 2.0;
     public static double MIN_BATTERY = 0;
     public static double MAX_BATTERY = SEASON == Season.WINTER ? 100.0 : 125.0;
 
     public static double getDeadheadEnergy(int from, int to) {
+        if (from == to) {
+            return 0;
+        }
         return getTravelDistance(from, to) * CONSUMPTION_PER_KM;
     }
 
     public static int getTravelTime(int from, int to) {
+        if (from == to) {
+            return 0;
+        }
         return matrixTime[from][to];
     }
 
     public static double getTravelDistance(int from, int to) {
+        if (from == to) {
+            return 0;
+        }
         return matrixKm[from][to];
     }
 

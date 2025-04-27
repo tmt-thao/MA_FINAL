@@ -65,7 +65,7 @@ public class AppGUI {
         // === Algorithm Parameters ===
         JTextField populationField = new JTextField("100");
         JTextField generationsField = new JTextField("500");
-        JTextField mutationRateField = new JTextField("0.2");
+        JTextField mutationRateField = new JTextField("0.8");
         JTextField mutationNumField = new JTextField("10");
         JTextField localSearchRateField = new JTextField("0.8");
         JTextField localSearchNumField = new JTextField("10");
@@ -125,9 +125,12 @@ public class AppGUI {
                     Season selectedSeason = (Season) seasonBox.getSelectedItem();
                     StaticData.SEASON = selectedSeason;
 
-                    // === Charging strategy from dropdown ===
+                    StaticData.CONSUMPTION_PER_KM = selectedSeason == Season.SPRING ? 1.5 : 2.0;
+                    StaticData.MAX_BATTERY = selectedSeason == Season.WINTER ? 100.0 : 125.0;
+
+                    // === Charging strategy ===
                     ChargingStrategy selectedStrategy = (ChargingStrategy) strategyBox.getSelectedItem();
-                    StaticData.CHARGING_STRATEGY = selectedStrategy;
+                    StaticData.chargingStrategy = selectedStrategy;
 
                     // === Algorithm parameters ===
                     String version = (String) versionBox.getSelectedItem();

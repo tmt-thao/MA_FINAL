@@ -18,12 +18,14 @@ public class Main {
         int[] turnuses = new int[replications];
         Solution best = null;
         double bestDuration = Double.MAX_VALUE;
+        double avgTurnuses = 0.0;
         for (int i = 0; i < replications; i++) {
             MemeticAlgorithm ma = new MemeticAlgorithm(populationSize, generations, mutationRate, mutationNum, localSearchRate, localSearchNum, 1800);
             ma.run();
             Solution curr = ma.getBestSolution();
             double durationInSeconds = ma.getDurationInSeconds();
             turnuses[i] = curr.getNumberOfTurnuses();
+            avgTurnuses += turnuses[i];
 
             if (best == null || (curr.getNumberOfTurnuses() < best.getNumberOfTurnuses() && curr.getFitness() < best.getFitness())) {
                 best = curr;
@@ -31,6 +33,7 @@ public class Main {
             }
         }
 
+        avgTurnuses /= replications;
         int bestCount = 0;
         for (int i = 0; i < turnuses.length; i++) {
             if (turnuses[i] == best.getNumberOfTurnuses()) {
@@ -46,27 +49,33 @@ public class Main {
         System.out.println("Local search rate: " + localSearchRate);
 
         System.out.println("\nSeason: " + StaticData.SEASON);
-        System.out.println("Charging strategy: " + StaticData.CHARGING_STRATEGY);
+        System.out.println("Consumption per km: " + StaticData.CONSUMPTION_PER_KM);
+        System.out.println("Max battery: " + StaticData.MAX_BATTERY);
+        System.out.println("Charging strategy: " + StaticData.chargingStrategy);
         
-        System.out.println("\nBest turnuses: " + best.getTurnuses().size());
+        System.out.println("\nAvg turnuses: " + avgTurnuses);
+        System.out.println("Best turnuses: " + best.getTurnuses().size());
         System.out.println("Best count: " + bestCount + "/" + replications);
         System.out.println("Trips: " + best.getUniqueTripsCount());
         System.out.println("Duration: " + bestDuration + " seconds");
 
         System.out.println("\nDataset: " + version);
 
-        try (FileWriter writer = new FileWriter(outputFilename)) {
+        try (FileWriter writer = new FileWriter("results/" + outputFilename)) {
             writer.write("Dataset: " + version + "\n");
             
             writer.write("\nSeason: " + StaticData.SEASON + "\n");
-            writer.write("Charging strategy: " + StaticData.CHARGING_STRATEGY + "\n");
+            writer.write("Consumption per km: " + StaticData.CONSUMPTION_PER_KM + "\n");
+            writer.write("Max battery: " + StaticData.MAX_BATTERY + "\n");
+            writer.write("Charging strategy: " + StaticData.chargingStrategy + "\n");
 
             writer.write("\nPopulation size: " + populationSize + "\n");
             writer.write("Generations: " + generations + "\n");
             writer.write("Mutation rate: " + mutationRate + "\n");
             writer.write("Local search rate: " + localSearchRate + "\n");
 
-            writer.write("\nBest turnuses: " + best.getTurnuses().size() + "\n");
+            writer.write("\nAvg turnuses: " + avgTurnuses + "\n");
+            writer.write("Best turnuses: " + best.getTurnuses().size() + "\n");
             writer.write("Best count: " + bestCount + "/" + replications + "\n");
             writer.write("Trips: " + best.getUniqueTripsCount() + "\n");
             writer.write("Duration: " + bestDuration + "\n");
@@ -87,19 +96,22 @@ public class Main {
         // double[] locSearchRates = {0.2, 0.5, 0.8};
         // int[] popSizes = {5, 50, 100};
 
-        int replications = 20;
-        int popSize = 5;
+        int replications = 10;
+        int popSize = 100;
         int gen = 500;
         double mutRate = 0.8;
         double locSearchRate = 0.8;
+        StaticData.chargingStrategy = ChargingStrategy.WHEN_POSSIBLE;
 
-        StaticData.CONSUMPTION_PER_KM = 2.0;
-        StaticData.MAX_BATTERY = 100.0;
-        StaticData.CHARGING_STRATEGY = ChargingStrategy.AT_START_STOP;
+        for (Season season : Season.values()) {
+            StaticData.SEASON = season;
+            StaticData.CONSUMPTION_PER_KM = season == Season.SPRING ? 1.5 : 2.0;
+            StaticData.MAX_BATTERY = season == Season.WINTER ? 100.0 : 125.0;
 
-        for (String version : versions) {
-            runWithParams(version, replications, popSize, gen, mutRate, 10, 
-            locSearchRate, 10, version + ".txt");
+            for (String version : versions) {
+                runWithParams(version, replications, popSize, gen, mutRate, 10, 
+                locSearchRate, 10, version + "_" + season + ".txt");
+            }
         }
     }
 }
