@@ -1,9 +1,13 @@
+package model;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+
+import data.StaticData;
+import enums.ChargingStrategy;
 
 public class Turnus {
     private List<TurnusElement> elements;
@@ -73,7 +77,7 @@ public class Turnus {
     }
 
     public boolean addTrip(Trip newTrip, HashMap<Integer, HashSet<Integer>> stopToChargers, HashMap<Integer, ArrayList<ChargingEvent>> chargerToEvents) {
-        if (StaticData.chargingStrategy == ChargingStrategy.WHEN_NEEDED) {
+        if (StaticData.CHARGING_STRATEGY == ChargingStrategy.WHEN_NEEDED) {
             return isFeasibleWhenNeeded(newTrip, stopToChargers, chargerToEvents);
         }
         return isFeasibleWhenPossible(newTrip, stopToChargers, chargerToEvents);

@@ -1,4 +1,10 @@
+package main;
 import javax.swing.*;
+
+import data.StaticData;
+import enums.ChargingStrategy;
+import enums.Season;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -130,7 +136,7 @@ public class AppGUI {
 
                     // === Charging strategy ===
                     ChargingStrategy selectedStrategy = (ChargingStrategy) strategyBox.getSelectedItem();
-                    StaticData.chargingStrategy = selectedStrategy;
+                    StaticData.CHARGING_STRATEGY = selectedStrategy;
 
                     // === Algorithm parameters ===
                     String version = (String) versionBox.getSelectedItem();

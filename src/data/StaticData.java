@@ -1,8 +1,14 @@
+package data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+import enums.ChargingStrategy;
+import enums.Season;
+import model.ChargingEvent;
+import model.Trip;
 
 public class StaticData {
     public static HashMap<Integer, Integer> stopIdToIndex;
@@ -17,7 +23,7 @@ public class StaticData {
     public static double[][] matrixKm;
     public static int[][] matrixTime;
 
-    public static ChargingStrategy chargingStrategy = ChargingStrategy.WHEN_POSSIBLE;
+    public static ChargingStrategy CHARGING_STRATEGY = ChargingStrategy.WHEN_POSSIBLE;
     public static Season SEASON = Season.SPRING;
     public static double CONSUMPTION_PER_KM = SEASON == Season.SPRING ? 1.5 : 2.0;
     public static double MIN_BATTERY = 0;

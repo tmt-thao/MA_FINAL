@@ -1,9 +1,15 @@
+package algorithm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import data.StaticData;
+import model.ChargingEvent;
+import model.Trip;
+import model.Turnus;
 
 public class Solution {
     private List<Turnus> turnuses;

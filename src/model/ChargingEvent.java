@@ -1,3 +1,4 @@
+package model;
 public class ChargingEvent implements TurnusElement {
     private int id;
     private int charger;

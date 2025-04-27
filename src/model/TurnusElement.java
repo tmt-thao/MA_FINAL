@@ -1,3 +1,4 @@
+package model;
 public interface TurnusElement {
     public int getStartTime();
     public int getEndTime();

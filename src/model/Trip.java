@@ -1,3 +1,4 @@
+package model;
 public class Trip implements TurnusElement {
     private int id;
     private int startStop;
