@@ -112,7 +112,14 @@ public class Main {
         double mutRate = 0.8;
         double locSearchRate = 0.8;
 
+        StaticData.CHARGING_STRATEGY = ChargingStrategy.WHEN_POSSIBLE;
+        StaticData.SEASON = Season.SPRING;
+        StaticData.CONSUMPTION_PER_KM = StaticData.SEASON == Season.SPRING ? 1.5 : 2.0;
+        StaticData.MAX_BATTERY = StaticData.SEASON == Season.WINTER ? 100.0 : 125.0;
 
-        runWithParams(version, replications, popSize, gen, mutRate, 10, locSearchRate, 10, "output.txt");
+        runWithParams(version, replications, 
+            popSize, gen, 
+            mutRate, 10, locSearchRate, 10,
+            "output.txt");
     }
 }
