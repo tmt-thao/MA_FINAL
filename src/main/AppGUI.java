@@ -57,7 +57,7 @@ public class AppGUI {
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         // === Replications ===
-        JTextField replicationsField = new JTextField("1");
+        JTextField replicationsField = new JTextField("10");
         replicationsField.setPreferredSize(inputSize);
         JPanel repPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         repPanel.add(new JLabel("Replications:"));
@@ -69,7 +69,7 @@ public class AppGUI {
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         // === Algorithm Parameters ===
-        JTextField populationField = new JTextField("100");
+        JTextField populationField = new JTextField("200");
         JTextField generationsField = new JTextField("500");
         JTextField mutationRateField = new JTextField("0.8");
         JTextField mutationNumField = new JTextField("10");
