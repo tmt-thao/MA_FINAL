@@ -98,9 +98,6 @@ public class Solution {
                     stopToChargers.remove(stop);
                 }
             }
-
-
-            // freeChargers.remove(chargingEvent);
         }
     }
 
@@ -114,8 +111,6 @@ public class Solution {
 
             stopToChargers.putIfAbsent(stop, new HashSet<>());
             stopToChargers.get(stop).add(charger);
-
-            // freeChargers.add(chargingEvent);
         }
         this.turnuses.remove(turnus);
     }

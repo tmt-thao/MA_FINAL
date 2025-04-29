@@ -103,11 +103,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        String[] versions = {
-            "T1_3", "T2_3", "T3_3", "T4_3",
-            "B1_3", "B2_3", "B3_3", "B4_3", "B5_3", "B6_3", "B7_3",
-            "A_4"
-        };
+        String version = "T1_3";
 
         int replications = 10;
 
@@ -117,19 +113,6 @@ public class Main {
         double locSearchRate = 0.8;
 
 
-        for (ChargingStrategy strategy : ChargingStrategy.values()) {
-            StaticData.CHARGING_STRATEGY = strategy;
-
-            for (Season season : Season.values()) {
-                StaticData.SEASON = season;
-                StaticData.CONSUMPTION_PER_KM = season == Season.SPRING ? 1.5 : 2.0;
-                StaticData.MAX_BATTERY = season == Season.WINTER ? 100.0 : 125.0;
-
-                for (String version : versions) {
-                    runWithParams(version, replications, popSize, gen, mutRate, 10, 
-                    locSearchRate, 10, "experiments/" + strategy + "/" + season + "/" + version  + ".txt");
-                }
-            }
-        }
+        runWithParams(version, replications, popSize, gen, mutRate, 10, locSearchRate, 10, "output.txt");
     }
 }
